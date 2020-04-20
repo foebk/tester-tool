@@ -1,0 +1,67 @@
+h3 {
+  color: white;
+  font-size: 18pt;
+}
+
+.tester-main-class{
+  margin: 1.5% 20% 0 20%;
+  background-color: #4d4d4d;
+}
+
+.questionMaker {
+  color: white;
+  width: 100%;
+  font-size: 10pt;
+}
+
+.questionMaker mat-label {
+  color: white;
+}
+
+.questionMaker mat-form-field {
+  width: 100%;
+  color: white;
+}
+
+.header {
+  padding-top: 1.1%;
+  padding-left: 24px;
+  padding-bottom: 1%;
+  background-color: #7b1fa2;
+  color: white;
+}
+
+.delete-button {
+  padding-left: 24px;
+  padding-bottom: 1%;
+  background-color: #424242;
+}
+
+.question-namer {
+  padding-top: 1%;
+  padding-left: 24px;
+  background-color: #424242;
+  margin: 0 0 0;
+}
+
+.right-answer-checkbox {
+  font-size: 11pt;
+}
+
+.answer-text {
+  width: 100%;
+  padding-right: 1%;
+}
+
+table {
+  width:100%;
+  table-layout: inherit;
+}
+
+.answer-checker {
+  width: 50px;
+}
+
+.remove-icon {
+  cursor: pointer;
+}
