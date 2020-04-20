@@ -1,4 +1,8 @@
 export class Answer {
-  text: String;
+  text: string;
   isCorrect: boolean;
+
+  constructor() {
+    this.isCorrect = false;
+  }
 }

@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import {Question} from "../models/question";
-import {Answer} from "../models/answer";
+import {Question} from '../models/question';
+import {Answer} from '../models/answer';
 
 @Component({
   selector: 'app-test-maker',
@@ -18,7 +18,7 @@ export class TestMakerComponent implements OnInit {
   }
 
   newQuestion(): void {
-    var question = new Question();
+    const question = new Question();
     question.answers = [new Answer(), new Answer()];
     this.questions.push(question);
     console.log(this.questions);
@@ -26,11 +26,14 @@ export class TestMakerComponent implements OnInit {
 
   removeQuestion(question: Question): void {
     this.questions.splice(this.questions.indexOf(question), 1);
-    console.log(this.questions.length)
+    console.log(this.questions.length);
   }
 
   addAnswer(question: Question): void {
     question.answers.push(new Answer());
   }
 
+  setQuestionPoints(value: string, question: Question) {
+    this.questions[this.questions.indexOf(question)].points = Number(value);
+  }
 }

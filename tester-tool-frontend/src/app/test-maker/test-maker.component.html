@@ -1,3 +1,4 @@
+<body>
 <div class="tester-main-class">
   <div class="header"><h2>Timacad test maker</h2>
     <button mat-raised-button (click)="newQuestion()">Добавить вопрос</button>
@@ -10,13 +11,13 @@
         <br>
         <mat-form-field appearance="outline">
           <mat-label>Введите вопрос (до 1000 символов)</mat-label>
-          <input #question_name maxlength="1000" matInput required>
+          <input #question_name maxlength="1000" (change)="question.text=question_name.value" matInput required>
         </mat-form-field>
         <mat-form-field appearance="outline">
           <mat-label>Баллов за правильный ответ</mat-label>
-          <input maxlength="3" matInput required>
+          <input maxlength="3" #question_points (change)="setQuestionPoints(question_points.value, question)" matInput
+                 required>
         </mat-form-field>
-        <button mat-raised-button matStepperNext color="accent">Next</button>
       </mat-step>
       <mat-step label="Варианты ответов">
         <table class="answer-table">
@@ -35,7 +36,9 @@
                 </mat-icon>
               </td>
             </tr>
-            <mat-checkbox class="right-answer-checkbox">Правильный вариант ответа</mat-checkbox>
+            <mat-checkbox class="right-answer-checkbox" (change)="answer.isCorrect=$event.source.checked">Правильный
+              вариант ответа
+            </mat-checkbox>
             <br>
             <br>
           </div>
@@ -43,6 +46,12 @@
         <button mat-raised-button color="primary" (click)="addAnswer(question)">Добавить вариант ответа</button>
       </mat-step>
       <mat-step label="Готово!">
+        <div class="done">
+          <mat-icon color="accent" [inline]="true">done_outline</mat-icon>
+          <div class="done-text"><p color="accent">Готово!</p></div>
+          <br>
+          <div class="done-discription">Вопрос "{{question.text}}" создан. <br> Вы можете его изменить, воспользовавшись навигацией ниже</div>
+        </div>
       </mat-step>
     </mat-horizontal-stepper>
     <div class="delete-button">
@@ -51,3 +60,4 @@
     <hr color="#4b4b4b">
   </div>
 </div>
+</body>
