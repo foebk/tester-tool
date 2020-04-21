@@ -59,5 +59,7 @@
     </div>
     <hr color="#4b4b4b">
   </div>
+  <button mat-raised-button *ngIf="questions.length>0" (click)="newQuestion()">Добавить вопрос</button>
+  <button class="save-test" mat-raised-button>Сохранить тест</button>
 </div>
 </body>
