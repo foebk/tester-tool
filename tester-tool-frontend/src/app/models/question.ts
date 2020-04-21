@@ -4,8 +4,6 @@ export class Question {
   text: string;
   answers: Answer[];
   points: number;
-  severalAnswers: boolean;
-
 
   constructor() {
     this.text = null;

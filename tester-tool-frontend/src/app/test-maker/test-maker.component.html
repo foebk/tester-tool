@@ -1,65 +1,80 @@
 <body>
-<div class="tester-main-class">
-  <div class="header"><h2>Timacad test maker</h2>
-    <button mat-raised-button (click)="newQuestion()">Добавить вопрос</button>
-  </div>
-  <div class="questionMaker" *ngFor="let question of questions">
-    <div class="question-namer">Вопрос №{{questions.indexOf(question) + 1}}</div>
-    <mat-horizontal-stepper labelPosition="bottom" linear>
-      <mat-step>
-        <ng-template matStepLabel>Основное</ng-template>
-        <br>
-        <mat-form-field appearance="outline">
-          <mat-label>Введите вопрос (до 1000 символов)</mat-label>
-          <input #question_name maxlength="1000" (change)="question.text=question_name.value" matInput required>
-        </mat-form-field>
-        <mat-form-field appearance="outline">
-          <mat-label>Баллов за правильный ответ</mat-label>
-          <input maxlength="3" #question_points (change)="setQuestionPoints(question_points.value, question)" matInput
-                 required>
-        </mat-form-field>
-      </mat-step>
-      <mat-step label="Варианты ответов">
-        <table class="answer-table">
-          <div *ngFor="let answer of question.answers">
-            <tr>
-              <td class="answer-text">
-                <mat-form-field appearance="outline">
-                  <mat-label>Введите вариант ответа (до 200 символов)</mat-label>
-                  <input class="answer-input" maxlength="200" matInput #answerText
-                         (change)="answer.text=answerText.value">
-                </mat-form-field>
-              </td>
-              <td>
-                <mat-icon class="remove-icon" (click)="question.answers.splice(question.answers.indexOf(answer), 1)">
-                  close
-                </mat-icon>
-              </td>
-            </tr>
-            <mat-checkbox class="right-answer-checkbox" (change)="answer.isCorrect=$event.source.checked">Правильный
-              вариант ответа
-            </mat-checkbox>
-            <br>
-            <br>
-          </div>
-        </table>
-        <button mat-raised-button color="primary" (click)="addAnswer(question)">Добавить вариант ответа</button>
-      </mat-step>
-      <mat-step label="Готово!">
-        <div class="done">
-          <mat-icon color="accent" [inline]="true">done_outline</mat-icon>
-          <div class="done-text"><p color="accent">Готово!</p></div>
-          <br>
-          <div class="done-discription">Вопрос "{{question.text}}" создан. <br> Вы можете его изменить, воспользовавшись навигацией ниже</div>
-        </div>
-      </mat-step>
-    </mat-horizontal-stepper>
-    <div class="delete-button">
-      <button mat-raised-button color="warn" (click)="removeQuestion(question)">Удалить вопрос</button>
+<div id="container">
+  <br>
+  <div class="tester-main-class">
+    <div class="header"><h2>TIMACAD TEST MAKER</h2>
+      <button mat-raised-button (click)="newQuestion()">Добавить вопрос</button>
     </div>
-    <hr color="#4b4b4b">
+    <div class="questionMaker" *ngFor="let question of questions">
+      <div class="question-namer">Вопрос №{{questions.indexOf(question) + 1}}</div>
+      <mat-horizontal-stepper labelPosition="bottom" linear>
+        <mat-step [stepControl]="firstFormGroups[questions.indexOf(question)]">
+          <form [formGroup]="firstFormGroups[questions.indexOf(question)]">
+            <ng-template matStepLabel>Основное</ng-template>
+            <br>
+            <mat-form-field appearance="outline">
+              <mat-label>Введите вопрос (до 1000 символов)</mat-label>
+              <input #question_name maxlength="1000" value={{question.text}}
+                     (change)="question.text=question_name.value" matInput required
+                     formControlName="questionCtrlName">
+            </mat-form-field>
+            <mat-form-field appearance="outline">
+              <mat-label>Баллов за правильный ответ</mat-label>
+              <input maxlength="3" #question_points (change)="setQuestionPoints(question_points.value, question)"
+                     matInput
+                     required formControlName="questionCtrlPoints" type="number">
+            </mat-form-field>
+            <button mat-raised-button matStepperNext>Далее</button>
+          </form>
+        </mat-step>
+        <mat-step label="Варианты ответов">
+          <table class="answer-table">
+            <div *ngFor="let answer of question.answers">
+              <form>
+                <tr>
+                  <td class="answer-text">
+                    <mat-form-field appearance="outline">
+                      <mat-label>Введите вариант ответа (до 200 символов)</mat-label>
+                      <input class="answer-input" maxlength="200" matInput #answerText
+                             (change)="answer.text=answerText.value" required>
+                    </mat-form-field>
+                  </td>
+                  <td>
+                    <mat-icon class="remove-icon"
+                              (click)="question.answers.splice(question.answers.indexOf(answer), 1)">
+                      close
+                    </mat-icon>
+                  </td>
+                </tr>
+                <mat-checkbox class="right-answer-checkbox" (change)="answer.isCorrect=$event.source.checked">Правильный
+                  вариант ответа
+                </mat-checkbox>
+                <br>
+                <br>
+              </form>
+            </div>
+          </table>
+          <button mat-raised-button color="primary" (click)="addAnswer(question)">Добавить вариант ответа</button>
+        </mat-step>
+        <mat-step label="Готово!">
+          <div class="done">
+            <mat-icon color="accent" [inline]="true">done_outline</mat-icon>
+            <div class="done-text"><p color="accent">Готово!</p></div>
+            <br>
+            <div class="done-discription"><p>Вопрос <i>"{{question.text}}"</i> создан. <br> Вы можете его изменить,
+              воспользовавшись навигацией ниже</p>
+            </div>
+          </div>
+        </mat-step>
+      </mat-horizontal-stepper>
+      <div class="delete-button">
+        <button mat-raised-button color="warn" (click)="removeQuestion(question)">Удалить вопрос</button>
+      </div>
+      <hr color="#4b4b4b">
+    </div>
+    <button mat-raised-button *ngIf="questions.length>0" (click)="newQuestion()">Добавить вопрос</button>
+    <button class="save-test" mat-raised-button>Сохранить тест</button>
   </div>
-  <button mat-raised-button *ngIf="questions.length>0" (click)="newQuestion()">Добавить вопрос</button>
-  <button class="save-test" mat-raised-button>Сохранить тест</button>
+  <br>
 </div>
 </body>

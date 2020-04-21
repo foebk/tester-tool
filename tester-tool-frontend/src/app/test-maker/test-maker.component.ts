@@ -1,6 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {Question} from '../models/question';
 import {Answer} from '../models/answer';
+import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 
 @Component({
   selector: 'app-test-maker',
@@ -10,16 +11,26 @@ import {Answer} from '../models/answer';
 export class TestMakerComponent implements OnInit {
 
   questions: Question[];
+  firstFormGroups: FormGroup[];
+  secondFormGroups: FormGroup[];
 
-  constructor() { }
+  // tslint:disable-next-line:variable-name
+  constructor(private _formBuilder: FormBuilder) {
+  }
 
   ngOnInit(): void {
     this.questions = [];
+    this.firstFormGroups = [];
+    this.secondFormGroups = [];
   }
 
   newQuestion(): void {
     const question = new Question();
     question.answers = [new Answer(), new Answer()];
+    this.firstFormGroups.push(this._formBuilder.group({
+      questionCtrlName: ['', Validators.required],
+      questionCtrlPoints: ['', Validators.required]
+    }));
     this.questions.push(question);
     console.log(this.questions);
   }
@@ -30,6 +41,9 @@ export class TestMakerComponent implements OnInit {
   }
 
   addAnswer(question: Question): void {
+    this.secondFormGroups.push(this._formBuilder.group({
+      answerCtrlName: ['', Validators.required]
+    }));
     question.answers.push(new Answer());
   }
 
