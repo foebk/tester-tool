@@ -16,7 +16,7 @@
               <mat-label>Введите вопрос (до 1000 символов)</mat-label>
               <input #question_name maxlength="1000" value={{question.text}}
                      (change)="question.text=question_name.value" matInput required
-                     formControlName="questionCtrlName">
+                     formControlName="questionCtrlName" autocomplete="off">
             </mat-form-field>
             <mat-form-field appearance="outline">
               <mat-label>Баллов за правильный ответ</mat-label>
