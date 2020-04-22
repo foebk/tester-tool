@@ -169,8 +169,9 @@ input::-webkit-inner-spin-button {
 .additional-field{
   background: #4d4d4d;
   margin-right: 5px;
+  margin-bottom: 3px;
 }
 
 .fields{
-  display: inline;
+  display: inline-flex;
 }

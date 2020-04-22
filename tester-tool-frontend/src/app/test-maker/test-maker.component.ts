@@ -57,7 +57,9 @@ export class TestMakerComponent implements OnInit {
   }
 
   addField(value: string) {
-    this.test.additionalFields.push(value);
-    this.additField = '';
+    if (this.test.additionalFields.length < 10 && value.length !== 0) {
+      this.test.additionalFields.push(value);
+      this.additField = '';
+    }
   }
 }

@@ -18,10 +18,12 @@
         <div class="additional-fields-flex-box1"></div>
         <mat-form-field class="additional-fields" appearance="outline">
           <mat-label>Дополнительное поле (до 50 символов)</mat-label>
-          <input matInput maxlength="50" #additionalField [(ngModel)]="additField" name="additField">
+          <input matInput maxlength="50" #additionalField [(ngModel)]="additField"
+                 (keyup.enter)="addField(additionalField.value)" name="additField">
         </mat-form-field>
         <div class="additional-fields-flex-box2">
-          <button class="add-field-button" mat-raised-button color="primary" [disabled]="additionalField.value==''"
+          <button class="add-field-button" mat-raised-button color="primary"
+                  [disabled]="additionalField.value=='' || test.additionalFields.length>9"
                   (click)="addField(additionalField.value)">
             <mat-icon class="add-icon">add</mat-icon>
           </button>
