@@ -7,7 +7,33 @@
         <button mat-raised-button (click)="newQuestion()">Добавить вопрос</button>
       </div>
     </div>
-
+    <br>
+    <div class="main-info">
+      <br>
+      <mat-form-field class="test-namer" appearance="outline">
+        <mat-label>Название теста</mat-label>
+        <input matInput>
+      </mat-form-field>
+      <mat-form-field class="test-namer" appearance="outline">
+        <mat-label>Описание теста</mat-label>
+        <input matInput>
+      </mat-form-field>
+      <div class="additional-fields-and-button">
+        <div class="additional-fields-flex-box1"></div>
+        <mat-form-field class="additional-fields" appearance="outline">
+          <mat-label>Дополнительные поля</mat-label>
+          <input matInput>
+          <mat-hint><i>Вы можете создать данные поля, чтобы получить дополнительную информацию о студенте. Например:
+            ФИО, факультет или номер группы</i></mat-hint>
+        </mat-form-field>
+        <div class="additional-fields-flex-box2">
+          <button class="add-field-button" mat-raised-button color="accent">
+            <mat-icon class="add-icon">add</mat-icon>
+          </button>
+        </div>
+      </div>
+    </div>
+    <br>
     <div class="questionMaker" *ngFor="let question of questions">
       <div class="question-namer">Вопрос №{{questions.indexOf(question) + 1}}</div>
       <mat-horizontal-stepper labelPosition="bottom" linear>

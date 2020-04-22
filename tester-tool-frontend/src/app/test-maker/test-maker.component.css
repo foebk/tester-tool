@@ -111,3 +111,46 @@ input::-webkit-outer-spin-button,
 input::-webkit-inner-spin-button {
   -webkit-appearance: none;
 }
+
+.main-info mat-label {
+  color: white;
+}
+
+.main-info mat-form-field {
+  color: white;
+}
+
+.test-namer {
+  width: 96%;
+  margin-left: 24px;
+}
+
+.additional-fields {
+  margin-left: 24px;
+  margin-right: 6px;
+  width: 100%;
+}
+
+.add-field-button {
+  margin-top: 1.3%;
+  margin-bottom: 7.7%;
+}
+
+.main-info {
+  background: #424242;
+}
+
+.add-icon {
+}
+
+.additional-fields-and-button {
+  display: flex;
+}
+
+.additional-fields-flex-box1 {
+  flex: 7;
+}
+
+.additional-fields-flex-box2 {
+  flex: 1;
+}
