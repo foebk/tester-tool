@@ -8,11 +8,11 @@
       <br>
       <mat-form-field class="test-namer" appearance="outline">
         <mat-label>Название теста</mat-label>
-        <input matInput #testName (change)="test.name=testName.value">
+        <input matInput #testName maxlength="100" (change)="test.name=testName.value">
       </mat-form-field>
       <mat-form-field class="test-namer" appearance="outline">
         <mat-label>Описание теста</mat-label>
-        <input matInput #testDescription (change)="test.description=testDescription.value">
+        <input matInput #testDescription maxlength="200" (change)="test.description=testDescription.value">
       </mat-form-field>
       <div class="additional-fields-and-button">
         <div class="additional-fields-flex-box1"></div>
@@ -35,11 +35,14 @@
       <div *ngIf="test.additionalFields.length!=0">
         <details class="additional-fields-helper">
           <summary>Созданные дополнительные поля</summary>
-          <div *ngFor="let field of test.additionalFields">
-            <p>{{field}}</p>
+          <div *ngFor="let field of test.additionalFields" class="fields">
+            <span class="additional-field">{{field}}
+              <mat-icon [inline]="true"
+                        (click)="test.additionalFields.splice(test.additionalFields.indexOf(field), 1)">close</mat-icon></span>
           </div>
         </details>
       </div>
+      <br>
     </div>
     <br>
     <div class="questionMaker" *ngFor="let question of questions">

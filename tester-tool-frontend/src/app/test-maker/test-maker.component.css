@@ -165,3 +165,12 @@ input::-webkit-inner-spin-button {
   color: rgba(255,255,255,.7);
   cursor: pointer;
 }
+
+.additional-field{
+  background: #4d4d4d;
+  margin-right: 5px;
+}
+
+.fields{
+  display: inline;
+}
