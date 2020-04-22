@@ -3,8 +3,11 @@
   <br>
   <div class="tester-main-class">
     <div class="header"><h2>TIMACAD TEST MAKER</h2>
-      <button mat-raised-button (click)="newQuestion()">Добавить вопрос</button>
+      <div *ngIf="questions.length<50">
+        <button mat-raised-button (click)="newQuestion()">Добавить вопрос</button>
+      </div>
     </div>
+
     <div class="questionMaker" *ngFor="let question of questions">
       <div class="question-namer">Вопрос №{{questions.indexOf(question) + 1}}</div>
       <mat-horizontal-stepper labelPosition="bottom" linear>
@@ -14,7 +17,7 @@
             <br>
             <mat-form-field appearance="outline">
               <mat-label>Введите вопрос (до 1000 символов)</mat-label>
-              <input #question_name maxlength="1000" value={{question.text}}
+              <input #question_name maxlength="1000"
                      (change)="question.text=question_name.value" matInput required
                      formControlName="questionCtrlName" autocomplete="off">
             </mat-form-field>
@@ -27,33 +30,57 @@
             <button mat-raised-button matStepperNext>Далее</button>
           </form>
         </mat-step>
-        <mat-step label="Варианты ответов">
+        <!--        step 2-->
+        <mat-step label="Варианты ответов" [stepControl]="secondFormGroups[questions.indexOf(question)]">
+          <form [formGroup]="secondFormGroups[questions.indexOf(question)]">
+            <mat-form-field appearance="outline">
+              <mat-label>Введите вариант ответа (до 200 символов)</mat-label>
+              <input class="answer-input" maxlength="200" matInput #answerText
+                     (change)="question.answers[0].text=answerText.value" required
+                     formControlName="firstAnswer">
+            </mat-form-field>
+            <mat-checkbox class="right-answer-checkbox" (change)="question.answers[0].isCorrect=$event.source.checked">
+              Правильный
+              вариант ответа
+            </mat-checkbox>
+            <mat-form-field appearance="outline">
+              <mat-label>Введите вариант ответа (до 200 символов)</mat-label>
+              <input class="answer-input" maxlength="200" matInput #answerText
+                     (change)="question.answers[1].text=answerText.value" required
+                     formControlName="secondAnswer">
+            </mat-form-field>
+            <mat-checkbox class="right-answer-checkbox" (change)="question.answers[1].isCorrect=$event.source.checked">
+              Правильный вариант ответа
+            </mat-checkbox>
+          </form>
           <table class="answer-table">
-            <div *ngFor="let answer of question.answers">
-              <form>
-                <tr>
-                  <td class="answer-text">
-                    <mat-form-field appearance="outline">
-                      <mat-label>Введите вариант ответа (до 200 символов)</mat-label>
-                      <input class="answer-input" maxlength="200" matInput #answerText
-                             (change)="answer.text=answerText.value" required>
-                    </mat-form-field>
-                  </td>
-                  <td>
-                    <mat-icon class="remove-icon"
-                              (click)="question.answers.splice(question.answers.indexOf(answer), 1)">
-                      close
-                    </mat-icon>
-                  </td>
-                </tr>
-                <mat-checkbox class="right-answer-checkbox" (change)="answer.isCorrect=$event.source.checked">Правильный
-                  вариант ответа
-                </mat-checkbox>
-                <br>
-                <br>
-              </form>
+            <div *ngFor="let answer of question.tempAnswers">
+              <tr>
+                <td class="answer-text">
+                  <mat-form-field appearance="outline">
+                    <mat-label>Введите вариант ответа (до 200 символов)</mat-label>
+                    <input class="answer-input" maxlength="200" matInput #answerText
+                           (change)="answer.text=answerText.value" required>
+                  </mat-form-field>
+                </td>
+                <td>
+                  <mat-icon class="remove-icon"
+                            (click)="question.tempAnswers.splice(question.tempAnswers.indexOf(answer), 1)">
+                    close
+                  </mat-icon>
+                </td>
+              </tr>
+              <mat-checkbox class="right-answer-checkbox" (change)="answer.isCorrect=$event.source.checked">Правильный
+                вариант ответа
+              </mat-checkbox>
+              <br>
+              <br>
             </div>
           </table>
+          <button mat-raised-button matStepperPrevious>Назад</button>
+          <button mat-raised-button matStepperNext>Далее</button>
+          <br>
+          <br>
           <button mat-raised-button color="primary" (click)="addAnswer(question)">Добавить вариант ответа</button>
         </mat-step>
         <mat-step label="Готово!">
@@ -62,7 +89,7 @@
             <div class="done-text"><p color="accent">Готово!</p></div>
             <br>
             <div class="done-discription"><p>Вопрос <i>"{{question.text}}"</i> создан. <br> Вы можете его изменить,
-              воспользовавшись навигацией ниже</p>
+              воспользовавшись навигацией выше</p>
             </div>
           </div>
         </mat-step>
@@ -72,8 +99,10 @@
       </div>
       <hr color="#4b4b4b">
     </div>
-    <button mat-raised-button *ngIf="questions.length>0" (click)="newQuestion()">Добавить вопрос</button>
-    <button class="save-test" mat-raised-button>Сохранить тест</button>
+    <button mat-raised-button *ngIf="questions.length>0 && questions.length<50" (click)="newQuestion()"
+            class="add-question">Добавить вопрос
+    </button>
+    <button mat-raised-button *ngIf="questions.length>0">Сохранить тест</button>
   </div>
   <br>
 </div>

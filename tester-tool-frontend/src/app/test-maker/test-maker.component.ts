@@ -31,20 +31,22 @@ export class TestMakerComponent implements OnInit {
       questionCtrlName: ['', Validators.required],
       questionCtrlPoints: ['', Validators.required]
     }));
+    this.secondFormGroups.push(this._formBuilder.group({
+      firstAnswer: ['', Validators.required],
+      secondAnswer: ['', Validators.required]
+    }));
+    question.tempAnswers = [];
     this.questions.push(question);
     console.log(this.questions);
+    console.log(this.secondFormGroups);
   }
 
   removeQuestion(question: Question): void {
     this.questions.splice(this.questions.indexOf(question), 1);
-    console.log(this.questions.length);
   }
 
   addAnswer(question: Question): void {
-    this.secondFormGroups.push(this._formBuilder.group({
-      answerCtrlName: ['', Validators.required]
-    }));
-    question.answers.push(new Answer());
+    question.tempAnswers.push(new Answer());
   }
 
   setQuestionPoints(value: string, question: Question) {

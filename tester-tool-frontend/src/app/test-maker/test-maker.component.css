@@ -103,8 +103,8 @@ table {
   word-break: break-word;
 }
 
-.save-test {
-  margin-left: 10px;
+.add-question {
+  margin-right: 30px;
 }
 
 input::-webkit-outer-spin-button,
