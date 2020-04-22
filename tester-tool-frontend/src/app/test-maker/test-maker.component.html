@@ -2,35 +2,43 @@
 <div id="container">
   <br>
   <div class="tester-main-class">
-    <div class="header"><h2>TIMACAD TEST MAKER</h2>
-      <div *ngIf="questions.length<50">
-        <button mat-raised-button (click)="newQuestion()">Добавить вопрос</button>
-      </div>
-    </div>
+    <div class="header"><h2>TIMACAD TEST MAKER</h2></div>
     <br>
     <div class="main-info">
       <br>
       <mat-form-field class="test-namer" appearance="outline">
         <mat-label>Название теста</mat-label>
-        <input matInput>
+        <input matInput #testName (change)="test.name=testName.value">
       </mat-form-field>
       <mat-form-field class="test-namer" appearance="outline">
         <mat-label>Описание теста</mat-label>
-        <input matInput>
+        <input matInput #testDescription (change)="test.description=testDescription.value">
       </mat-form-field>
       <div class="additional-fields-and-button">
         <div class="additional-fields-flex-box1"></div>
         <mat-form-field class="additional-fields" appearance="outline">
-          <mat-label>Дополнительные поля</mat-label>
-          <input matInput>
-          <mat-hint><i>Вы можете создать данные поля, чтобы получить дополнительную информацию о студенте. Например:
-            ФИО, факультет или номер группы</i></mat-hint>
+          <mat-label>Дополнительное поле (до 50 символов)</mat-label>
+          <input matInput maxlength="50" #additionalField [(ngModel)]="additField" name="additField">
         </mat-form-field>
         <div class="additional-fields-flex-box2">
-          <button class="add-field-button" mat-raised-button color="accent">
+          <button class="add-field-button" mat-raised-button color="primary" [disabled]="additionalField.value==''"
+                  (click)="addField(additionalField.value)">
             <mat-icon class="add-icon">add</mat-icon>
           </button>
         </div>
+      </div>
+      <mat-hint class="additional-fields-helper"><i>Вы можете создать данные поля, чтобы получить дополнительную
+        информацию о студенте. Например:
+        ФИО, факультет или номер группы</i></mat-hint>
+      <br>
+      <br>
+      <div *ngIf="test.additionalFields.length!=0">
+        <details class="additional-fields-helper">
+          <summary>Созданные дополнительные поля</summary>
+          <div *ngFor="let field of test.additionalFields">
+            <p>{{field}}</p>
+          </div>
+        </details>
       </div>
     </div>
     <br>
@@ -65,7 +73,8 @@
                      (change)="question.answers[0].text=answerText.value" required
                      formControlName="firstAnswer">
             </mat-form-field>
-            <mat-checkbox class="right-answer-checkbox" (change)="question.answers[0].isCorrect=$event.source.checked">
+            <mat-checkbox class="right-answer-checkbox"
+                          (change)="question.answers[0].isCorrect=$event.source.checked">
               Правильный
               вариант ответа
             </mat-checkbox>
@@ -75,7 +84,8 @@
                      (change)="question.answers[1].text=answerText.value" required
                      formControlName="secondAnswer">
             </mat-form-field>
-            <mat-checkbox class="right-answer-checkbox" (change)="question.answers[1].isCorrect=$event.source.checked">
+            <mat-checkbox class="right-answer-checkbox"
+                          (change)="question.answers[1].isCorrect=$event.source.checked">
               Правильный вариант ответа
             </mat-checkbox>
           </form>
@@ -125,7 +135,7 @@
       </div>
       <hr color="#4b4b4b">
     </div>
-    <button mat-raised-button *ngIf="questions.length>0 && questions.length<50" (click)="newQuestion()"
+    <button mat-raised-button *ngIf="questions.length<50" (click)="newQuestion()"
             class="add-question">Добавить вопрос
     </button>
     <button mat-raised-button *ngIf="questions.length>0">Сохранить тест</button>
