@@ -1,5 +1,5 @@
 <body>
-<div id="container">
+<div id="container" (change)="testValidation()">
   <br>
   <div class="tester-main-class">
     <div class="header"><h2>TIMACAD TEST MAKER</h2></div>
@@ -47,7 +47,7 @@
       <br>
     </div>
     <br>
-    <div class="questionMaker" *ngFor="let question of questions">
+    <div class="questionMaker" *ngFor="let question of questions" (change)="validation(question)">
       <div class="question-namer">Вопрос №{{questions.indexOf(question) + 1}}</div>
       <mat-horizontal-stepper labelPosition="bottom" linear>
         <mat-step [stepControl]="firstFormGroups[questions.indexOf(question)]">
@@ -60,12 +60,15 @@
                      (change)="question.text=question_name.value" matInput required
                      formControlName="questionCtrlName" autocomplete="off">
             </mat-form-field>
-            <mat-form-field appearance="outline">
+            <mat-form-field appearance="outline" class="points-field">
               <mat-label>Баллов за правильный ответ</mat-label>
               <input maxlength="3" #question_points (change)="setQuestionPoints(question_points.value, question)"
                      matInput
-                     required formControlName="questionCtrlPoints" type="number">
+                     required formControlName="questionCtrlPoints" type="number"
+                     min="0">
             </mat-form-field>
+            <mat-hint class="points-helper"><i>От 0 до 100 баллов</i></mat-hint>
+            <br>
             <button mat-raised-button matStepperNext>Далее</button>
           </form>
         </mat-step>
@@ -143,7 +146,9 @@
     <button mat-raised-button *ngIf="questions.length<50" (click)="newQuestion()"
             class="add-question">Добавить вопрос
     </button>
-    <button mat-raised-button *ngIf="questions.length>0">Сохранить тест</button>
+    <button mat-raised-button *ngIf="questions.length>0" [disabled]="!testValid">
+      Сохранить тест
+    </button>
   </div>
   <br>
 </div>

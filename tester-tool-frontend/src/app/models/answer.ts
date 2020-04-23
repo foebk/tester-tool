@@ -4,5 +4,6 @@ export class Answer {
 
   constructor() {
     this.isCorrect = false;
+    this.text = '';
   }
 }

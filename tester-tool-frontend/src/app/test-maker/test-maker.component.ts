@@ -16,6 +16,7 @@ export class TestMakerComponent implements OnInit {
   secondFormGroups: FormGroup[];
   test: Test = new Test();
   additField: string;
+  testValid = false;
 
   // tslint:disable-next-line:variable-name
   constructor(private _formBuilder: FormBuilder) {
@@ -32,7 +33,7 @@ export class TestMakerComponent implements OnInit {
     question.answers = [new Answer(), new Answer()];
     this.firstFormGroups.push(this._formBuilder.group({
       questionCtrlName: ['', Validators.required],
-      questionCtrlPoints: ['', Validators.required]
+      questionCtrlPoints: ['', Validators.compose([Validators.required, Validators.min(0), Validators.max(100)])]
     }));
     this.secondFormGroups.push(this._formBuilder.group({
       firstAnswer: ['', Validators.required],
@@ -40,6 +41,7 @@ export class TestMakerComponent implements OnInit {
     }));
     question.tempAnswers = [];
     this.questions.push(question);
+    this.testValidation();
     console.log(this.questions);
     console.log((this.test));
   }
@@ -52,14 +54,29 @@ export class TestMakerComponent implements OnInit {
     question.tempAnswers.push(new Answer());
   }
 
-  setQuestionPoints(value: string, question: Question) {
+  setQuestionPoints(value: string, question: Question): void {
     this.questions[this.questions.indexOf(question)].points = Number(value);
   }
 
-  addField(value: string) {
+  addField(value: string): void {
     if (this.test.additionalFields.length < 10 && value.length !== 0) {
       this.test.additionalFields.push(value);
       this.additField = '';
     }
+  }
+
+  validation(question: Question): void {
+    question.isValid = (question.text !== null && question.points !== -1 && question.answers[0].text.length !== 0
+      && question.answers[1].text.length !== 0);
+  }
+
+  testValidation(): void {
+    this.questions.forEach(question => {
+      if (!question.isValid) {
+        this.testValid = false;
+        return;
+      }
+      this.testValid = true;
+    });
   }
 }

@@ -163,7 +163,6 @@ input::-webkit-inner-spin-button {
   margin-left: 24px;
   font-size: 9pt;
   color: rgba(255,255,255,.7);
-  cursor: pointer;
 }
 
 .additional-field{
@@ -174,4 +173,13 @@ input::-webkit-inner-spin-button {
 
 .fields{
   display: inline-flex;
+}
+
+.points-helper {
+  font-size: 9pt;
+  color: rgba(255,255,255,.7);
+}
+
+.points-field {
+  margin-bottom: -2%;
 }
