@@ -82,14 +82,14 @@
                      formControlName="firstAnswer">
             </mat-form-field>
             <mat-checkbox class="right-answer-checkbox"
-                          (change)="question.answers[1].isCorrect=$event.source.checked">
+                          (change)="question.answers[0].isCorrect=$event.source.checked">
               Правильный
               вариант ответа
             </mat-checkbox>
             <mat-form-field appearance="outline">
               <mat-label>Введите вариант ответа (до 200 символов)</mat-label>
-              <input class="answer2-input" maxlength="200" matInput #answerText
-                     (change)="question.answers[1].text=answerText.value" required
+              <input class="answer2-input" maxlength="200" matInput #answerText2
+                     (change)="question.answers[1].text=answerText2.value" required
                      formControlName="secondAnswer">
             </mat-form-field>
             <mat-checkbox class="right-answer-checkbox"
