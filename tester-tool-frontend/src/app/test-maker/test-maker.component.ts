@@ -3,11 +3,12 @@ import {Question} from '../models/question';
 import {Answer} from '../models/answer';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {Test} from '../models/test';
+import {HttpClient} from '@angular/common/http';
 
 @Component({
   selector: 'app-test-maker',
   templateUrl: './test-maker.component.html',
-  styleUrls: ['./test-maker.component.css']
+  styleUrls: ['./test-maker.component.css'],
 })
 export class TestMakerComponent implements OnInit {
 
@@ -19,7 +20,7 @@ export class TestMakerComponent implements OnInit {
   testValid = false;
 
   // tslint:disable-next-line:variable-name
-  constructor(private _formBuilder: FormBuilder) {
+  constructor(private _formBuilder: FormBuilder, private http: HttpClient) {
   }
 
   ngOnInit(): void {
@@ -42,8 +43,6 @@ export class TestMakerComponent implements OnInit {
     question.tempAnswers = [];
     this.questions.push(question);
     this.testValidation();
-    console.log(this.questions);
-    console.log((this.test));
   }
 
   removeQuestion(question: Question): void {
@@ -78,5 +77,13 @@ export class TestMakerComponent implements OnInit {
       }
       this.testValid = true;
     });
+  }
+
+  sendTest(test: Test): void {
+    this.test.questions = this.questions;
+    this.http.post('http://localhost:8080/addTest', test)
+      .subscribe(response => {
+      });
+    console.log(test);
   }
 }
