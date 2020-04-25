@@ -6,8 +6,9 @@ import javax.persistence.*;
 public class AdditionalFieldsEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    int id;
-    String text;
+    private int id;
+
+    private String text;
 
     public int getId() {
         return id;

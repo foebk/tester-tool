@@ -1,17 +1,21 @@
 package TesterTool.Entities;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
+import java.util.List;
 
 @Entity(name = "answers")
 public class AnswersEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
+
     private String text;
+
     private boolean isCorrect;
+
+    @ManyToOne
+    @JoinColumn(name = "question_id")
+    private QuestionsEntity questions;
 
     public int getId() {
         return id;
@@ -35,5 +39,13 @@ public class AnswersEntity {
 
     public void setCorrect(boolean correct) {
         isCorrect = correct;
+    }
+
+    public QuestionsEntity getQuestions() {
+        return questions;
+    }
+
+    public void setQuestions(QuestionsEntity questions) {
+        this.questions = questions;
     }
 }
