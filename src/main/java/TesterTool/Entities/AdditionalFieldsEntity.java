@@ -1,5 +1,7 @@
 package TesterTool.Entities;
 
+import org.aspectj.weaver.ast.Test;
+
 import javax.persistence.*;
 
 @Entity(name = "additional_fields")
@@ -9,6 +11,10 @@ public class AdditionalFieldsEntity {
     private int id;
 
     private String text;
+
+    @ManyToOne
+    @JoinColumn(name = "test_id")
+    private TestEntity test;
 
     public int getId() {
         return id;

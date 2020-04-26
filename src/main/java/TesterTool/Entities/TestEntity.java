@@ -20,6 +20,9 @@ public class TestEntity {
     @OneToMany(mappedBy = "test")
     private List<QuestionsEntity> questions;
 
+    @OneToMany(mappedBy = "test")
+    private List<AdditionalFieldsEntity> additionalFields;
+
     public int getId() {
         return id;
     }

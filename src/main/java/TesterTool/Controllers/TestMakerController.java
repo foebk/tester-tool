@@ -1,5 +1,6 @@
 package TesterTool.Controllers;
 
+import TesterTool.Converter.TestModelToTestEntityConverter;
 import TesterTool.Entities.TestEntity;
 import TesterTool.Models.TestModel;
 import TesterTool.Repos.AdditionalFieldsRepository;
@@ -36,7 +37,9 @@ public class TestMakerController {
 
     @PostMapping("/addTest")
     public ResponseEntity<String> addTest(@RequestBody TestModel test) {
-        System.out.println(test);
+        TestModelToTestEntityConverter testModelToTestEntityConverter = new TestModelToTestEntityConverter();
+
+        TestEntity testEntity = testModelToTestEntityConverter.convert(test);
         return ResponseEntity.ok().body(null);
     }
 }
