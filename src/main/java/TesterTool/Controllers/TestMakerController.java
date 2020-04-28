@@ -1,6 +1,7 @@
 package TesterTool.Controllers;
 
 import TesterTool.Converter.TestModelToTestEntityConverter;
+import TesterTool.Entities.QuestionsEntity;
 import TesterTool.Entities.TestEntity;
 import TesterTool.Models.TestModel;
 import TesterTool.Repos.AdditionalFieldsRepository;
@@ -12,6 +13,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Objects;
+import java.util.Optional;
 
 @RestController
 @CrossOrigin(origins = "http://localhost:4200")
@@ -31,7 +34,7 @@ public class TestMakerController {
 
     @GetMapping("/test")
     public String test() {
-        List<TestEntity> questionsEntities = testRepository.findAll();
+        List<TestEntity> all = testRepository.findAll();
         return "ok";
     }
 
@@ -39,7 +42,7 @@ public class TestMakerController {
     public ResponseEntity<String> addTest(@RequestBody TestModel test) {
         TestModelToTestEntityConverter testModelToTestEntityConverter = new TestModelToTestEntityConverter();
 
-        TestEntity testEntity = testModelToTestEntityConverter.convert(test);
+        testRepository.save(Objects.requireNonNull(testModelToTestEntityConverter.convert(test)));
         return ResponseEntity.ok().body(null);
     }
 }

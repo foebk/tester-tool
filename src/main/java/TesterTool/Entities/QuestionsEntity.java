@@ -15,7 +15,7 @@ public class QuestionsEntity {
 
     private int points;
 
-    @OneToMany(mappedBy = "questions")
+    @OneToMany(mappedBy = "questions", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<AnswersEntity> answers;
 
     @ManyToOne
