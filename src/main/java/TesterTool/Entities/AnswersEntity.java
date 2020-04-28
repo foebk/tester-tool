@@ -14,7 +14,6 @@ public class AnswersEntity {
     private boolean isCorrect;
 
     @ManyToOne
-    @JoinColumn(name = "question_id")
     private QuestionsEntity questions;
 
     public int getId() {

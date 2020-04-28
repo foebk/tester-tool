@@ -17,10 +17,12 @@ public class TestEntity {
 
     private LocalDateTime creationTime;
 
-    @OneToMany(mappedBy = "test", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
+    @JoinColumn(name = "test_id")
     private List<QuestionsEntity> questions;
 
-    @OneToMany(mappedBy = "test", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
+    @JoinColumn(name = "test_id")
     private List<AdditionalFieldsEntity> additionalFields;
 
     public int getId() {

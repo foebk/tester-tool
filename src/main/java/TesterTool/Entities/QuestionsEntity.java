@@ -15,11 +15,11 @@ public class QuestionsEntity {
 
     private int points;
 
-    @OneToMany(mappedBy = "questions", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
+    @JoinColumn(name = "question_id")
     private List<AnswersEntity> answers;
 
     @ManyToOne
-    @JoinColumn(name = "test_id")
     private TestEntity test;
 
     public TestEntity getTest() {

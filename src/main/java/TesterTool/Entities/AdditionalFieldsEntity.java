@@ -13,7 +13,6 @@ public class AdditionalFieldsEntity {
     private String text;
 
     @ManyToOne
-    @JoinColumn(name = "test_id")
     private TestEntity test;
 
     public int getId() {
