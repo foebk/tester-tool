@@ -1,2 +1,2 @@
 # tester-tool
-hmm
+Система создания и решения тестов [UNCOMPLETED]
