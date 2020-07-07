@@ -163,6 +163,7 @@ input::-webkit-inner-spin-button {
   margin-left: 24px;
   font-size: 9pt;
   color: rgba(255,255,255,.7);
+  cursor: pointer;
 }
 
 .additional-field{

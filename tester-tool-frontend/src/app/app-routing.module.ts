@@ -1,10 +1,10 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import {TestMakerComponent} from "./test-maker/test-maker.component";
+import {TestMakerComponent} from './test-maker/test-maker.component';
 
 
 const routes: Routes = [
-  { path: 'test-maker-component', component: TestMakerComponent}
+  { path: 'create-test', component: TestMakerComponent}
 ];
 
 @NgModule({

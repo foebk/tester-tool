@@ -1,4 +1,4 @@
-import {Question} from "./question";
+import {Question} from './question';
 
 export class Test {
   name: string;
