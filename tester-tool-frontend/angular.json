@@ -123,5 +123,8 @@
       }
     }
   },
-  "defaultProject": "tester-tool-frontend"
+  "defaultProject": "tester-tool-frontend",
+  "cli": {
+    "analytics": false
+  }
 }
