@@ -32,12 +32,6 @@ public class TestMakerController {
         this.testRepository = testRepository;
     }
 
-    @GetMapping("/test")
-    public String test() {
-        List<TestEntity> all = testRepository.findAll();
-        return "ok";
-    }
-
     @PostMapping("/addTest")
     public ResponseEntity<String> addTest(@RequestBody TestModel test) {
         TestModelToTestEntityConverter testModelToTestEntityConverter = new TestModelToTestEntityConverter();
