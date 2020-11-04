@@ -4,8 +4,6 @@ import {Answer} from '../models/answer';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {Test} from '../models/test';
 import {HttpClient} from '@angular/common/http';
-import {ClipboardModule} from '@angular/cdk/clipboard';
-import * as globals from '../vars';
 
 @Component({
   selector: 'app-test-maker',
@@ -22,7 +20,6 @@ export class TestMakerComponent implements OnInit {
   testUuid: string;
   testValid = false;
 
-  // tslint:disable-next-line :variable-name
   constructor(private _formBuilder: FormBuilder, private http: HttpClient) {
   }
 
