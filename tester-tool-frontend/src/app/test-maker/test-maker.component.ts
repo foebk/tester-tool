@@ -4,6 +4,8 @@ import {Answer} from '../models/answer';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {Test} from '../models/test';
 import {HttpClient} from '@angular/common/http';
+import {ClipboardModule} from '@angular/cdk/clipboard';
+import * as globals from '../vars';
 
 @Component({
   selector: 'app-test-maker',
@@ -17,9 +19,10 @@ export class TestMakerComponent implements OnInit {
   secondFormGroups: FormGroup[];
   test: Test = new Test();
   additField: string;
+  testUuid: string;
   testValid = false;
 
-  // tslint:disable-next-line:variable-name
+  // tslint:disable-next-line :variable-name
   constructor(private _formBuilder: FormBuilder, private http: HttpClient) {
   }
 
@@ -82,7 +85,8 @@ export class TestMakerComponent implements OnInit {
   sendTest(test: Test): void {
     this.test.questions = this.questions;
     this.http.post('http://localhost:8080/addTest', test)
-      .subscribe(response => {
+      .subscribe((data: string) => {
+        this.testUuid = data;
       });
     console.log(test);
   }

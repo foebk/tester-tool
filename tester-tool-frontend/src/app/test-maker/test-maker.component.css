@@ -184,3 +184,19 @@ input::-webkit-inner-spin-button {
 .points-field {
   margin-bottom: -2%;
 }
+
+.test-completed {
+  background: #4d4d4d;
+  margin-left: auto;
+  margin-right: auto;
+  overflow: hidden;
+  text-align: center;
+  color: white;
+  width: 70%;
+  padding: 2.5% 0 2.5% 0;
+  background: #424242;
+}
+
+.test-link {
+  width: 70%;
+}

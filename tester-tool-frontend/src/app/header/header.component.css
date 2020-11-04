@@ -21,3 +21,8 @@ a {
   text-decoration: none;
   color: white;
 }
+
+.mat-icon {
+  vertical-align: center;
+  font-size: 16pt;
+}

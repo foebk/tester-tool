@@ -1,9 +1,8 @@
-package TesterTool.Converter;
+package TesterTool.converter;
 
-import TesterTool.Entities.AdditionalFieldsEntity;
-import TesterTool.Entities.QuestionsEntity;
-import TesterTool.Entities.TestEntity;
-import TesterTool.Models.TestModel;
+import TesterTool.entities.AdditionalFieldsEntity;
+import TesterTool.entities.TestEntity;
+import TesterTool.models.TestModel;
 import org.springframework.core.convert.converter.Converter;
 
 import java.time.LocalDateTime;

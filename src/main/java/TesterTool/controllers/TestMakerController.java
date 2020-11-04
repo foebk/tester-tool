@@ -1,20 +1,19 @@
-package TesterTool.Controllers;
+package TesterTool.controllers;
 
-import TesterTool.Converter.TestModelToTestEntityConverter;
-import TesterTool.Entities.QuestionsEntity;
-import TesterTool.Entities.TestEntity;
-import TesterTool.Models.TestModel;
-import TesterTool.Repos.AdditionalFieldsRepository;
-import TesterTool.Repos.AnswersRepository;
-import TesterTool.Repos.QuestionsRepository;
-import TesterTool.Repos.TestRepository;
+import TesterTool.converter.TestModelToTestEntityConverter;
+import TesterTool.entities.TestEntity;
+import TesterTool.models.TestModel;
+import TesterTool.repos.AdditionalFieldsRepository;
+import TesterTool.repos.AnswersRepository;
+import TesterTool.repos.QuestionsRepository;
+import TesterTool.repos.TestRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
 import java.util.Objects;
-import java.util.Optional;
+import java.util.UUID;
 
 @RestController
 @CrossOrigin(origins = "http://localhost:4200")
@@ -33,10 +32,15 @@ public class TestMakerController {
     }
 
     @PostMapping("/addTest")
-    public ResponseEntity<String> addTest(@RequestBody TestModel test) {
+    public ResponseEntity<UUID> addTest(@RequestBody TestModel test) {
         TestModelToTestEntityConverter testModelToTestEntityConverter = new TestModelToTestEntityConverter();
 
-        testRepository.save(Objects.requireNonNull(testModelToTestEntityConverter.convert(test)));
-        return ResponseEntity.ok().body(null);
+        TestEntity entity = testRepository.save(Objects.requireNonNull(testModelToTestEntityConverter.convert(test)));
+        return ResponseEntity.ok().body(entity.getId());
+    }
+
+    @GetMapping("/getTest")
+    public TestEntity getTest(@RequestParam("uuid") UUID uuid) {
+        return testRepository.findById(uuid).orElse(null);
     }
 }

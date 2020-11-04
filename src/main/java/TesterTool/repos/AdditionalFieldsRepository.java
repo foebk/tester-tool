@@ -1,6 +1,6 @@
-package TesterTool.Repos;
+package TesterTool.repos;
 
-import TesterTool.Entities.AdditionalFieldsEntity;
+import TesterTool.entities.AdditionalFieldsEntity;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 

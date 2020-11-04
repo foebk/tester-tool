@@ -1,6 +1,6 @@
-package TesterTool.Repos;
+package TesterTool.repos;
 
-import TesterTool.Entities.QuestionsEntity;
+import TesterTool.entities.QuestionsEntity;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 

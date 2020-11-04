@@ -16,12 +16,14 @@ import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {HttpClientModule} from '@angular/common/http';
 import { HeaderComponent } from './header/header.component';
 import {MatToolbarModule} from "@angular/material/toolbar";
+import { OpenTestComponent } from './open-test/open-test.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     TestMakerComponent,
-    HeaderComponent
+    HeaderComponent,
+    OpenTestComponent
   ],
     imports: [
         BrowserModule,
