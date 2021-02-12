@@ -1,7 +1,6 @@
-package TesterTool.Entities;
+package TesterTool.entities;
 
 import javax.persistence.*;
-import java.util.List;
 
 @Entity(name = "answers")
 public class AnswersEntity {

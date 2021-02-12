@@ -1,6 +1,4 @@
-package TesterTool.Entities;
-
-import org.aspectj.weaver.ast.Test;
+package TesterTool.entities;
 
 import javax.persistence.*;
 

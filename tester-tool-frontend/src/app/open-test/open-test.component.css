@@ -1,0 +1,37 @@
+.background {
+  background: #4d4d4d;
+  margin-left: auto;
+  margin-right: auto;
+  overflow: hidden;
+}
+
+body {
+  background-color: #4d4d4d;
+}
+
+mat-label {
+  color: white;
+}
+
+mat-form-field {
+  color: white;
+}
+
+.tester-main-class{
+}
+
+.open-test {
+  background: #4d4d4d;
+  margin-left: auto;
+  margin-right: auto;
+  overflow: hidden;
+  text-align: center;
+  color: white;
+  width: 70%;
+  padding: 2.5% 0 2.5% 0;
+  background: #424242;
+}
+
+.test-id {
+  width: 70%
+}

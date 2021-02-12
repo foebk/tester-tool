@@ -1,4 +1,4 @@
-package TesterTool.Models;
+package TesterTool.models;
 
 public class Answer {
     private String text;

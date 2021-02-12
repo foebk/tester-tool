@@ -1,0 +1,17 @@
+<body>
+<app-header></app-header>
+<div class="tester-main-class">
+  <br>
+  <br>
+  <div *ngIf="test==null || test == undefined" class="open-test">
+    <mat-form-field appearance="outline" class="test-id">
+      <mat-label>Введите ID теста</mat-label>
+      <input matInput #test (change)="testId=test.value">
+    </mat-form-field>
+    <br>
+    <button mat-raised-button (click)="getTest()">
+      Открыть тест
+    </button>
+  </div>
+</div>
+</body>
