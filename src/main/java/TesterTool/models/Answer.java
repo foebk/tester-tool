@@ -1,6 +1,8 @@
 package TesterTool.models;
 
-public class Answer {
+import com.fasterxml.jackson.annotation.JsonProperty;
+
+public class Answer  {
     private String text;
     private boolean isCorrect;
 
@@ -12,10 +14,12 @@ public class Answer {
         this.text = text;
     }
 
-    public boolean isCorrect() {
+    @JsonProperty("isCorrect")
+    public Boolean isCorrect() {
         return isCorrect;
     }
 
+    @JsonProperty("isCorrect")
     public void setCorrect(boolean correct) {
         isCorrect = correct;
     }

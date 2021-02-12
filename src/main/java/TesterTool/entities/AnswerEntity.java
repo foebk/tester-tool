@@ -1,26 +1,32 @@
 package TesterTool.entities;
 
+import org.hibernate.annotations.GenericGenerator;
+
 import javax.persistence.*;
+import java.util.UUID;
 
 @Entity(name = "answers")
-public class AnswersEntity {
+public class AnswerEntity {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    @GeneratedValue(generator = "UUID")
+    @GenericGenerator(
+            name = "UUID",
+            strategy = "org.hibernate.id.UUIDGenerator"
+    )
+    private UUID id;
 
     private String text;
 
     private boolean isCorrect;
 
     @ManyToOne
-    @JoinColumn(name = "question_id")
-    private QuestionsEntity questions;
+    private QuestionEntity questions;
 
-    public int getId() {
+    public UUID getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(UUID id) {
         this.id = id;
     }
 
@@ -40,11 +46,11 @@ public class AnswersEntity {
         isCorrect = correct;
     }
 
-    public QuestionsEntity getQuestions() {
+    public QuestionEntity getQuestions() {
         return questions;
     }
 
-    public void setQuestions(QuestionsEntity questions) {
+    public void setQuestions(QuestionEntity questions) {
         this.questions = questions;
     }
 }

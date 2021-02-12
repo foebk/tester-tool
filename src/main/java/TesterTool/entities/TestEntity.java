@@ -23,10 +23,12 @@ public class TestEntity {
 
     private LocalDateTime creationTime;
 
-    @OneToMany(mappedBy = "test", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<QuestionsEntity> questions;
+    @OneToMany(cascade = CascadeType.PERSIST)
+    @JoinColumn(name = "test_id")
+    private List<QuestionEntity> questions;
 
-    @OneToMany(mappedBy = "test", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(cascade = CascadeType.PERSIST)
+    @JoinColumn(name = "test_id")
     private List<AdditionalFieldsEntity> additionalFields;
 
     public UUID getId() {
@@ -61,11 +63,11 @@ public class TestEntity {
         this.creationTime = creationTime;
     }
 
-    public List<QuestionsEntity> getQuestions() {
+    public List<QuestionEntity> getQuestions() {
         return questions;
     }
 
-    public void setQuestions(List<QuestionsEntity> questions) {
+    public void setQuestions(List<QuestionEntity> questions) {
         this.questions = questions;
     }
 

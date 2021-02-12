@@ -6,7 +6,7 @@ public class Question {
     private List<Answer> answers;
     private List<Answer> tempAnswers;
     private String text;
-    private short points;
+    private int points;
 
     public List<Answer> getAnswers() {
         return answers;
@@ -32,11 +32,11 @@ public class Question {
         this.text = text;
     }
 
-    public short getPoints() {
+    public int getPoints() {
         return points;
     }
 
-    public void setPoints(short points) {
+    public void setPoints(int points) {
         this.points = points;
     }
 

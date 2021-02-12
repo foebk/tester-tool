@@ -1,12 +1,12 @@
 package TesterTool.repos;
 
-import TesterTool.entities.QuestionsEntity;
+import TesterTool.entities.QuestionEntity;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
 @Repository
-public interface QuestionsRepository extends CrudRepository<QuestionsEntity, Integer> {
-    List<QuestionsEntity> findAll();
+public interface QuestionsRepository extends CrudRepository<QuestionEntity, Integer> {
+    List<QuestionEntity> findAll();
 }

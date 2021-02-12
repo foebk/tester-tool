@@ -20,6 +20,7 @@ export class OpenTestComponent implements OnInit {
   }
 
   getTest(): void {
+    console.log(this.testId);
     this.http.post('http://localhost:8080/getTest', this.testId)
       .subscribe((test: Test) => {
         this.test = test;

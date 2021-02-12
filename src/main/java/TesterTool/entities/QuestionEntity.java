@@ -1,23 +1,30 @@
 package TesterTool.entities;
 
+import org.hibernate.annotations.GenericGenerator;
+
 import javax.persistence.*;
 import java.util.List;
+import java.util.UUID;
 
 @Entity(name = "questions")
-public class QuestionsEntity {
+public class QuestionEntity {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    @GeneratedValue(generator = "UUID")
+    @GenericGenerator(
+            name = "UUID",
+            strategy = "org.hibernate.id.UUIDGenerator"
+    )
+    private UUID id;
 
     private String text;
 
     private int points;
 
-    @OneToMany(mappedBy = "questions", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<AnswersEntity> answers;
+    @OneToMany(cascade = CascadeType.ALL)
+    @JoinColumn(name = "question_id")
+    private List<AnswerEntity> answers;
 
     @ManyToOne
-    @JoinColumn(name = "test_id")
     private TestEntity test;
 
     public TestEntity getTest() {
@@ -28,11 +35,11 @@ public class QuestionsEntity {
         this.test = test;
     }
 
-    public int getId() {
+    public UUID getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(UUID id) {
         this.id = id;
     }
 
@@ -52,11 +59,11 @@ public class QuestionsEntity {
         this.points = points;
     }
 
-    public List<AnswersEntity> getAnswers() {
+    public List<AnswerEntity> getAnswers() {
         return answers;
     }
 
-    public void setAnswers(List<AnswersEntity> answers) {
+    public void setAnswers(List<AnswerEntity> answers) {
         this.answers = answers;
     }
 }

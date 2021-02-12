@@ -1,16 +1,16 @@
-package TesterTool.converter;
+package TesterTool.converters;
 
-import TesterTool.entities.QuestionsEntity;
+import TesterTool.entities.QuestionEntity;
 import TesterTool.models.Question;
 import org.springframework.core.convert.converter.Converter;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class QuestionToQuestionsEntity implements Converter<Question, QuestionsEntity> {
+public class QuestionToQuestionEntity implements Converter<Question, QuestionEntity> {
     @Override
-    public QuestionsEntity convert(Question question) {
-        QuestionsEntity questionsEntity = new QuestionsEntity();
+    public QuestionEntity convert(Question question) {
+        QuestionEntity questionsEntity = new QuestionEntity();
         AnswerToAnswersEntity answerToAnswersEntity = new AnswerToAnswersEntity();
 
         questionsEntity.setText(question.getText());
@@ -21,11 +21,11 @@ public class QuestionToQuestionsEntity implements Converter<Question, QuestionsE
         return questionsEntity;
     }
 
-    public List<QuestionsEntity> convertList(List<Question> questions) {
-        List<QuestionsEntity> questionsEntities = new ArrayList<>();
+    public List<QuestionEntity> convertList(List<Question> questions) {
+        List<QuestionEntity> questionsEntities = new ArrayList<>();
 
         questions.forEach(question -> {
-            QuestionsEntity questionsEntity = convert(question);
+            QuestionEntity questionsEntity = convert(question);
 
             questionsEntities.add(questionsEntity);
         });
