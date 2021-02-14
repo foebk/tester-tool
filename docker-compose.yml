@@ -7,13 +7,3 @@ services:
     restart: always
     ports:
       - 5432:5432
-    env_file:
-      - 'variables.env'
-
-#  app:
-#    image: foebk/simple-spring-container
-#    restart: always
-#    links:
-#      - db
-#    env_file:
-#      - 'variables.env'
