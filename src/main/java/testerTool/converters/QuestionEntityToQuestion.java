@@ -1,7 +1,7 @@
-package TesterTool.converters;
+package testerTool.converters;
 
-import TesterTool.entities.QuestionEntity;
-import TesterTool.models.Question;
+import testerTool.entities.QuestionEntity;
+import testerTool.models.Question;
 import org.springframework.core.convert.converter.Converter;
 
 import java.util.List;

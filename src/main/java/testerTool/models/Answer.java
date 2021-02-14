@@ -1,4 +1,4 @@
-package TesterTool.models;
+package testerTool.models;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 

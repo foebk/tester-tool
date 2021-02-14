@@ -1,9 +1,9 @@
-package TesterTool.services;
+package testerTool.services;
 
-import TesterTool.converters.TestModelToTestEntity;
-import TesterTool.entities.TestEntity;
-import TesterTool.models.TestModel;
-import TesterTool.repos.TestRepository;
+import testerTool.converters.TestModelToTestEntity;
+import testerTool.entities.TestEntity;
+import testerTool.models.TestModel;
+import testerTool.repos.TestRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;

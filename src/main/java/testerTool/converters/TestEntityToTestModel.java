@@ -1,7 +1,7 @@
-package TesterTool.converters;
+package testerTool.converters;
 
-import TesterTool.entities.TestEntity;
-import TesterTool.models.TestModel;
+import testerTool.entities.TestEntity;
+import testerTool.models.TestModel;
 import org.springframework.core.convert.converter.Converter;
 
 public class TestEntityToTestModel implements Converter<TestEntity, TestModel> {

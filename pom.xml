@@ -22,7 +22,7 @@
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
                 <configuration>
-                    <mainClass>TesterTool.Main</mainClass>
+                    <mainClass>testerTool.Main</mainClass>
                 </configuration>
                 <executions>
                     <execution>

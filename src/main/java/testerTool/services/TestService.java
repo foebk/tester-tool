@@ -1,6 +1,6 @@
-package TesterTool.services;
+package testerTool.services;
 
-import TesterTool.models.TestModel;
+import testerTool.models.TestModel;
 import org.springframework.http.ResponseEntity;
 
 import java.util.UUID;

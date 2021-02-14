@@ -1,4 +1,4 @@
-package TesterTool.entities;
+package testerTool.entities;
 
 import org.hibernate.annotations.GenericGenerator;
 

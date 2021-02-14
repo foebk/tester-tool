@@ -1,8 +1,7 @@
-package TesterTool.controllers;
+package testerTool.controllers;
 
-import TesterTool.entities.TestEntity;
-import TesterTool.models.TestModel;
-import TesterTool.services.TestService;
+import testerTool.models.TestModel;
+import testerTool.services.TestService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;

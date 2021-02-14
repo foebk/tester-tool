@@ -1,4 +1,4 @@
-package TesterTool.models;
+package testerTool.models;
 
 import java.util.List;
 
