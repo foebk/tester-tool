@@ -1,43 +1,43 @@
 <body>
 <app-header></app-header>
-<div class="tester-main-class">
+<div class="tester-main-class background">
   <br>
   <br>
-  <div class="open-test">
-    <div *ngIf="test==null || test == undefined" class="get-test-field">
-      <mat-form-field appearance="outline" class="test-id">
-        <mat-label>Введите ID теста</mat-label>
-        <input matInput #test (change)="testId=test.value">
-      </mat-form-field>
+  <div class="open-test get-test-field" *ngIf="test==null || test == undefined">
+    <mat-form-field appearance="outline" class="test-id">
+      <mat-label>Введите ID теста</mat-label>
+      <input matInput #test (change)="testId=test.value">
+    </mat-form-field>
+    <br>
+    <button mat-raised-button (click)="getTest()">
+      Открыть тест
+    </button>
+    <div *ngIf="errorText!=null">
       <br>
-      <button mat-raised-button (click)="getTest()">
-        Открыть тест
-      </button>
-      <div *ngIf="errorText!=null">
-        <br>
-        <span style="color: red"><i>{{errorText}}</i></span>
+      <span style="color: red"><i>{{errorText}}</i></span>
+    </div>
+  </div>
+  <div *ngIf="test!=null">
+    <div class="open-test description-and-name">
+      <h1>{{test.name}}</h1>
+      <h4><i>{{test.description}}</i></h4>
+      <br>
+      <div *ngFor="let field of test.additionalFields">
+        <mat-form-field appearance="outline" class="additional-fields">
+          <mat-label>{{field}}</mat-label>
+          <input matInput #testName maxlength="100">
+        </mat-form-field>
       </div>
     </div>
-    <div *ngIf="test!=null">
-      <div class="description-and-name">
-      <h1>{{test.name}}</h1>
-        <h4><i>{{test.description}}</i></h4>
-      <br>
-        <div *ngFor="let field of test.additionalFields">
-          <mat-form-field appearance="outline" class="additional-fields">
-            <mat-label>{{field}}</mat-label>
-            <input matInput #testName maxlength="100">
-          </mat-form-field>
-        </div>
-        <h2>Вопросы</h2>
-        <div *ngFor="let question of test.questions">
-          <h3><i>{{question.text}}</i></h3>
-          <div *ngFor="let answer of question.answers">
-            <mat-checkbox class="example-margin">{{answer.text}}</mat-checkbox>
-          </div>
-          <hr class="line">
+    <br>
+    <div *ngFor="let question of test.questions">
+      <div class="open-test description-and-name">
+        <h3><i>{{question.text}}</i></h3>
+        <div *ngFor="let answer of question.answers">
+          <mat-checkbox class="example-margin">{{answer.text}}</mat-checkbox>
         </div>
       </div>
+      <br>
     </div>
   </div>
 </div>
