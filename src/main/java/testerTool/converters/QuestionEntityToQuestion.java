@@ -11,9 +11,14 @@ public class QuestionEntityToQuestion implements Converter<QuestionEntity, Quest
     @Override
     public Question convert(QuestionEntity questionEntity) {
         Question question = new Question();
+
+        AnswerEntityToAnswerModel answerEntityToAnswerModel = new AnswerEntityToAnswerModel();
         question.setText(questionEntity.getText());
         question.setPoints(questionEntity.getPoints());
-        return null;
+        question.setAnswers(questionEntity.getAnswers().stream()
+                .map(answerEntityToAnswerModel::convert)
+                .collect(Collectors.toList()));
+        return question;
     }
 
     public List<Question> convertList(List<QuestionEntity> questionEntities) {

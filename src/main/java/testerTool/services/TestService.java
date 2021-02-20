@@ -8,5 +8,5 @@ import java.util.UUID;
 public interface TestService {
     ResponseEntity<UUID> addTest(TestModel testModel);
 
-    TestModel getTest();
+    TestModel getTest(UUID uuid);
 }

@@ -3,6 +3,7 @@ package testerTool.models;
 import java.util.List;
 
 public class TestModel {
+    private String id;
     private String name;
     private String description;
     private List<String> additionalFields;

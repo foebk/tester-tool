@@ -27,6 +27,7 @@ public class TestMakerController {
     public TestModel getTest(@RequestBody String uuid) {
         TestModel testModel = new TestModel();
         testModel.setName("aaa");
-        return null;
+
+        return testService.getTest(UUID.fromString(uuid));
     }
 }

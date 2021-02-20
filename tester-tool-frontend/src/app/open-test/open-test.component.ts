@@ -11,6 +11,7 @@ export class OpenTestComponent implements OnInit {
   test: Test;
   httpClient: HttpClient;
   testId: string;
+  errorText: string;
 
   constructor(private http: HttpClient) {
     this.httpClient = http;
@@ -26,6 +27,11 @@ export class OpenTestComponent implements OnInit {
         this.test = test;
         console.log(test);
       });
-    console.log(this.test);
+    if (this.test == null || this.test == undefined) {
+      this.errorText = "Неправильный UUID. Тест не найден";
+    }
+    else {
+      this.errorText = null;
+    }
   }
 }
