@@ -35,7 +35,10 @@
       <div class="open-test description-and-name">
         <h3><i>{{question.text}}</i></h3>
         <div *ngFor="let answer of question.answers">
-          <mat-checkbox class="example-margin">{{answer.text}}</mat-checkbox>
+          <mat-checkbox class="example-margin"
+                        (change)="testRequest.questions.get(question.id).answers.set(answer.id, $event.source.checked)">
+            {{answer.text}}
+          </mat-checkbox>
         </div>
       </div>
       <br>
