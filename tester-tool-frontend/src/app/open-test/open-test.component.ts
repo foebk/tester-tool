@@ -15,6 +15,7 @@ export class OpenTestComponent implements OnInit {
   testId: string;
   errorText: string;
   testRequest: TestRequest;
+  errorTextSendResult: string;
 
   constructor(private http: HttpClient) {
     this.httpClient = http;
@@ -28,7 +29,6 @@ export class OpenTestComponent implements OnInit {
       this.errorText = "ID не задан. Введите ID."
     }
     else {
-      console.log(this.testId);
       this.http.post('http://localhost:8080/getTest', this.testId)
         .subscribe((test: Test) => {
           this.test = test;
@@ -38,9 +38,11 @@ export class OpenTestComponent implements OnInit {
           } else {
             this.errorText = null;
           }
-          console.log(test);
           this.testRequest = new TestRequest();
           this.testRequest.additionalFields = new Map();
+          this.test.additionalFields.forEach(field => {
+            this.testRequest.additionalFields.set(field, null)
+          })
           this.testRequest.questions = new Map();
           this.test.questions.forEach(question => {
             var questionRequest = new QuestionRequest();
@@ -51,8 +53,26 @@ export class OpenTestComponent implements OnInit {
             })
             this.testRequest.questions.set(question.id, questionRequest);
           })
-          console.log(this.testRequest)
         });
     }
+  }
+
+  sendRequest(): void {
+    this.errorTextSendResult = null;
+    var errorFields = [];
+    this.testRequest.additionalFields.forEach((value, key) => {
+      var field = this.testRequest.additionalFields.get(key);
+      if (field == null || field == "") {
+        errorFields.push(key);
+      }
+    })
+    if (errorFields.length != 0) {
+      this.errorTextSendResult = "Заполните оставшиеся поля: "
+      errorFields.forEach(error => {
+        this.errorTextSendResult = this.errorTextSendResult + "\"" + error + "\", "
+      })
+      this.errorTextSendResult = this.errorTextSendResult.slice(0, this.errorTextSendResult.length - 2);
+    }
+    console.log(this.errorTextSendResult);
   }
 }

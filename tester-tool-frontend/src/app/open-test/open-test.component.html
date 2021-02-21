@@ -26,7 +26,7 @@
         <mat-form-field appearance="outline" class="additional-fields"
                         (change)="testRequest.additionalFields.set(field, fieldText.value)">
           <mat-label>{{field}}</mat-label>
-          <input matInput #fieldText maxlength="100">
+          <input required matInput #fieldText maxlength="100">
         </mat-form-field>
       </div>
     </div>
@@ -42,6 +42,15 @@
         </div>
       </div>
       <br>
+    </div>
+    <div class="save-button">
+      <button mat-raised-button (click)="sendRequest()">
+        Отправить
+      </button>
+      <div>
+        <br>
+        <span *ngIf="errorTextSendResult!=null" style="color: red"><i>{{errorTextSendResult}}</i></span>
+      </div>
     </div>
   </div>
 </div>

@@ -52,3 +52,6 @@ mat-form-field {
   color: #777777
 }
 
+.save-button {
+  margin: 0 12.4% 50px 12.4%;
+}
