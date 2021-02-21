@@ -1,12 +1,22 @@
 package testerTool.models;
 
 import java.util.List;
+import java.util.UUID;
 
 public class Question {
+    private UUID id;
     private List<Answer> answers;
     private List<Answer> tempAnswers;
     private String text;
     private int points;
+
+    public UUID getId() {
+        return id;
+    }
+
+    public void setId(UUID id) {
+        this.id = id;
+    }
 
     public List<Answer> getAnswers() {
         return answers;

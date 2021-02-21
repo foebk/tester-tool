@@ -14,6 +14,7 @@ public class TestEntityToTestModel implements Converter<TestEntity, TestModel> {
         TestModel test = new TestModel();
         QuestionEntityToQuestion questionEntityToQuestion = new QuestionEntityToQuestion();
 
+        test.setId(testEntity.getId());
         test.setName(testEntity.getName());
         test.setDescription(testEntity.getDescription());
         test.setQuestions(questionEntityToQuestion.convertList(testEntity.getQuestions()));

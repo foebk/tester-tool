@@ -7,6 +7,6 @@ import testerTool.models.Answer;
 public class AnswerEntityToAnswerModel implements Converter<AnswerEntity, Answer> {
     @Override
     public Answer convert(AnswerEntity answerEntity) {
-        return new Answer(answerEntity.getText(), answerEntity.isCorrect());
+        return new Answer(answerEntity.getId(), answerEntity.getText(), answerEntity.isCorrect());
     }
 }

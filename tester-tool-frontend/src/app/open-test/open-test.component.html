@@ -23,9 +23,10 @@
       <h4><i>{{test.description}}</i></h4>
       <br>
       <div *ngFor="let field of test.additionalFields">
-        <mat-form-field appearance="outline" class="additional-fields">
+        <mat-form-field appearance="outline" class="additional-fields"
+                        (change)="testRequest.additionalFields.set(field, fieldText.value)">
           <mat-label>{{field}}</mat-label>
-          <input matInput #testName maxlength="100">
+          <input matInput #fieldText maxlength="100">
         </mat-form-field>
       </div>
     </div>

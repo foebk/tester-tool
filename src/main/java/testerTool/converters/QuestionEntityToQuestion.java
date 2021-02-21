@@ -13,6 +13,7 @@ public class QuestionEntityToQuestion implements Converter<QuestionEntity, Quest
         Question question = new Question();
 
         AnswerEntityToAnswerModel answerEntityToAnswerModel = new AnswerEntityToAnswerModel();
+        question.setId(questionEntity.getId());
         question.setText(questionEntity.getText());
         question.setPoints(questionEntity.getPoints());
         question.setAnswers(questionEntity.getAnswers().stream()
