@@ -1,6 +1,6 @@
 package testerTool.converters;
 
-import testerTool.entities.AdditionalFieldsEntity;
+import testerTool.entities.AdditionalFieldEntity;
 import testerTool.entities.TestEntity;
 import testerTool.models.TestModel;
 import org.springframework.core.convert.converter.Converter;
@@ -22,15 +22,15 @@ public class TestModelToTestEntity implements Converter<TestModel, TestEntity> {
         testEntity.setCreationTime(LocalDateTime.now());
         testEntity.setQuestions(questionToQuestionsEntity.convertList(testModel.getQuestions()));
 
-        List<AdditionalFieldsEntity> additionalFieldsEntityList = new ArrayList<>();
+        List<AdditionalFieldEntity> additionalFieldEntityList = new ArrayList<>();
         testModel.getAdditionalFields().forEach(field -> {
-            AdditionalFieldsEntity additionalFieldsEntity = new AdditionalFieldsEntity();
+            AdditionalFieldEntity additionalFieldEntity = new AdditionalFieldEntity();
 
-            additionalFieldsEntity.setText(field);
-            additionalFieldsEntityList.add(additionalFieldsEntity);
+            additionalFieldEntity.setText(field.getText());
+            additionalFieldEntityList.add(additionalFieldEntity);
         });
 
-        testEntity.setAdditionalFields(additionalFieldsEntityList);
+        testEntity.setAdditionalFields(additionalFieldEntityList);
 
         return testEntity;
     }

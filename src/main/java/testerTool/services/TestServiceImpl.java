@@ -2,8 +2,9 @@ package testerTool.services;
 
 import testerTool.converters.TestEntityToTestModel;
 import testerTool.converters.TestModelToTestEntity;
-import testerTool.entities.AdditionalFieldsEntity;
+import testerTool.entities.AdditionalFieldEntity;
 import testerTool.entities.TestEntity;
+import testerTool.models.AdditionalField;
 import testerTool.models.TestModel;
 import testerTool.repos.TestRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -41,7 +42,7 @@ public class TestServiceImpl implements TestService {
         return Optional.ofNullable(entity).map(e -> {
             TestModel testModel = testEntityToTestModel.convert(e);
             testModel.setAdditionalFields(e.getAdditionalFields().stream()
-                    .map(AdditionalFieldsEntity::getText).collect(Collectors.toList()));
+                    .map(field -> new AdditionalField(field.getId(), field.getText())).collect(Collectors.toList()));
 
             return testModel;
         }).orElse(null);

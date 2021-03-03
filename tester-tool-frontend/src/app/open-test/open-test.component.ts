@@ -3,6 +3,8 @@ import {Test} from '../models/test';
 import {HttpClient} from '@angular/common/http';
 import {TestRequest} from "../models/testRequest";
 import {QuestionRequest} from "../models/questionRequest";
+import {AdditionalFieldRequest} from "../models/additionalFieldRequest";
+import {AdditionalField} from "../models/additionalField";
 
 @Component({
   selector: 'app-open-test',
@@ -16,12 +18,15 @@ export class OpenTestComponent implements OnInit {
   errorText: string;
   testRequest: TestRequest;
   errorTextSendResult: string;
+  fieldsMap: Map<string, string>;
+  isSent: boolean;
 
   constructor(private http: HttpClient) {
     this.httpClient = http;
   }
 
   ngOnInit(): void {
+    this.isSent = false
   }
 
   getTest(): void {
@@ -38,10 +43,12 @@ export class OpenTestComponent implements OnInit {
           } else {
             this.errorText = null;
           }
+          this.fieldsMap = new Map<string, string>();
+          this.test.additionalFields.forEach(field => this.fieldsMap.set(field.id, field.name))
           this.testRequest = new TestRequest();
           this.testRequest.additionalFields = new Map();
           this.test.additionalFields.forEach(field => {
-            this.testRequest.additionalFields.set(field, null)
+            this.testRequest.additionalFields.set(field.id, new AdditionalFieldRequest(field.id, null))
           })
           this.testRequest.questions = new Map();
           this.test.questions.forEach(question => {
@@ -53,17 +60,23 @@ export class OpenTestComponent implements OnInit {
             })
             this.testRequest.questions.set(question.id, questionRequest);
           })
+          this.testRequest.id = this.testId
         });
     }
   }
 
+  changeField(value: string, field: AdditionalField) {
+    this.testRequest.additionalFields.get(field.id).value = value
+  }
+
   sendRequest(): void {
+    console.log(this.testRequest)
     this.errorTextSendResult = null;
     var errorFields = [];
     this.testRequest.additionalFields.forEach((value, key) => {
       var field = this.testRequest.additionalFields.get(key);
-      if (field == null || field == "") {
-        errorFields.push(key);
+      if (field.value == null || field.value == "") {
+        errorFields.push(this.fieldsMap.get(field.id));
       }
     })
     if (errorFields.length != 0) {
@@ -73,6 +86,10 @@ export class OpenTestComponent implements OnInit {
       })
       this.errorTextSendResult = this.errorTextSendResult.slice(0, this.errorTextSendResult.length - 2);
     }
-    console.log(this.errorTextSendResult);
+    else {
+      this.http.post('http://localhost:8080/getResult', this.testRequest)
+        .subscribe(() => { this.isSent = true;
+        });
+    }
   }
 }

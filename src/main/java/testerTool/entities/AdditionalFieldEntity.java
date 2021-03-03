@@ -6,7 +6,7 @@ import javax.persistence.*;
 import java.util.UUID;
 
 @Entity(name = "additional_fields")
-public class AdditionalFieldsEntity {
+public class AdditionalFieldEntity {
     @Id
     @GeneratedValue(generator = "UUID")
     @GenericGenerator(

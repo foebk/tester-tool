@@ -1,6 +1,7 @@
 package testerTool.controllers;
 
 import testerTool.models.TestModel;
+import testerTool.models.TestRequest;
 import testerTool.services.TestService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -25,9 +26,17 @@ public class TestMakerController {
 
     @PostMapping("/getTest")
     public TestModel getTest(@RequestBody String uuid) {
-        TestModel testModel = new TestModel();
-        testModel.setName("aaa");
+        try{
+            UUID id = UUID.fromString(uuid);
+            return testService.getTest(id);
+        } catch (IllegalArgumentException exception){
+            return null;
+        }
+    }
 
-        return testService.getTest(UUID.fromString(uuid));
+    @PostMapping("/getResult")
+    public String getResult(@RequestBody TestRequest testRequest) {
+        System.out.println(1);
+        return null;
     }
 }

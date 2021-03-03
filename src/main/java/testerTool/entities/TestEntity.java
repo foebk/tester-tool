@@ -29,7 +29,7 @@ public class TestEntity {
 
     @OneToMany(cascade = CascadeType.PERSIST)
     @JoinColumn(name = "test_id")
-    private List<AdditionalFieldsEntity> additionalFields;
+    private List<AdditionalFieldEntity> additionalFields;
 
     public UUID getId() {
         return id;
@@ -71,11 +71,11 @@ public class TestEntity {
         this.questions = questions;
     }
 
-    public List<AdditionalFieldsEntity> getAdditionalFields() {
+    public List<AdditionalFieldEntity> getAdditionalFields() {
         return additionalFields;
     }
 
-    public void setAdditionalFields(List<AdditionalFieldsEntity> additionalFields) {
+    public void setAdditionalFields(List<AdditionalFieldEntity> additionalFields) {
         this.additionalFields = additionalFields;
     }
 }

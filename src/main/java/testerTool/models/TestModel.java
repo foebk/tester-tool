@@ -7,7 +7,7 @@ public class TestModel {
     private UUID id;
     private String name;
     private String description;
-    private List<String> additionalFields;
+    private List<AdditionalField> additionalFields;
     private List<Question> questions;
 
     public UUID getId() {
@@ -34,11 +34,11 @@ public class TestModel {
         this.description = description;
     }
 
-    public List<String> getAdditionalFields() {
+    public List<AdditionalField> getAdditionalFields() {
         return additionalFields;
     }
 
-    public void setAdditionalFields(List<String> additionalFields) {
+    public void setAdditionalFields(List<AdditionalField> additionalFields) {
         this.additionalFields = additionalFields;
     }
 

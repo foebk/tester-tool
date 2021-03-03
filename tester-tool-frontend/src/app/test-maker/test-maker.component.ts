@@ -4,6 +4,7 @@ import {Answer} from '../models/answer';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {Test} from '../models/test';
 import {HttpClient} from '@angular/common/http';
+  import {AdditionalField} from "../models/additionalField";
 
 @Component({
   selector: 'app-test-maker',
@@ -59,7 +60,9 @@ export class TestMakerComponent implements OnInit {
 
   addField(value: string): void {
     if (this.test.additionalFields.length < 10 && value.length !== 0) {
-      this.test.additionalFields.push(value);
+      var additionalField = new AdditionalField();
+      additionalField.name = value;
+      this.test.additionalFields.push(additionalField);
       this.additField = '';
     }
   }

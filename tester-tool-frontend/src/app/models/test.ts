@@ -1,10 +1,11 @@
 import {Question} from './question';
+import {AdditionalField} from "./additionalField";
 
 export class Test {
   id: string
   name: string;
   description: string;
-  additionalFields: string[];
+  additionalFields: AdditionalField[];
   questions: Question[];
 
   constructor() {

@@ -39,7 +39,7 @@
           <details class="additional-fields-helper">
             <summary>Созданные дополнительные поля</summary>
             <div *ngFor="let field of test.additionalFields" class="fields">
-            <span class="additional-field">{{field}}
+            <span class="additional-field">{{field.name}}
               <mat-icon [inline]="true"
                         (click)="test.additionalFields.splice(test.additionalFields.indexOf(field), 1)">close</mat-icon></span>
             </div>

@@ -17,15 +17,15 @@
       <span style="color: red"><i>{{errorText}}</i></span>
     </div>
   </div>
-  <div *ngIf="test!=null">
+  <div *ngIf="test!=null && isSent==false">
     <div class="open-test description-and-name">
       <h1>{{test.name}}</h1>
       <h4><i>{{test.description}}</i></h4>
       <br>
       <div *ngFor="let field of test.additionalFields">
         <mat-form-field appearance="outline" class="additional-fields"
-                        (change)="testRequest.additionalFields.set(field, fieldText.value)">
-          <mat-label>{{field}}</mat-label>
+                        (change)="changeField(fieldText.value, field)">
+          <mat-label>{{field.name}}</mat-label>
           <input required matInput #fieldText maxlength="100">
         </mat-form-field>
       </div>
@@ -52,6 +52,11 @@
         <span *ngIf="errorTextSendResult!=null" style="color: red"><i>{{errorTextSendResult}}</i></span>
       </div>
     </div>
+  </div>
+  <div *ngIf="isSent==true">
+      <div class="open-test description-and-name">
+        <h1>Результаты теста</h1>
+      </div>
   </div>
 </div>
 </body>
