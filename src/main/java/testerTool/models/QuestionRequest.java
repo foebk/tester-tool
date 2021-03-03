@@ -1,11 +1,11 @@
 package testerTool.models;
 
-import java.util.Map;
+import java.util.List;
 import java.util.UUID;
 
 public class QuestionRequest {
     private UUID id;
-    Map<String, Boolean> answers;
+    List<AnswerRequest> answers;
 
     public UUID getId() {
         return id;
@@ -15,11 +15,11 @@ public class QuestionRequest {
         this.id = id;
     }
 
-    public Map<String, Boolean> getAnswers() {
+    public List<AnswerRequest> getAnswers() {
         return answers;
     }
 
-    public void setAnswers(Map<String, Boolean> answers) {
+    public void setAnswers(List<AnswerRequest> answers) {
         this.answers = answers;
     }
 }

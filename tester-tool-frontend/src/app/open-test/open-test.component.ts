@@ -1,10 +1,13 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {Test} from '../models/test';
 import {HttpClient} from '@angular/common/http';
 import {TestRequest} from "../models/testRequest";
 import {QuestionRequest} from "../models/questionRequest";
 import {AdditionalFieldRequest} from "../models/additionalFieldRequest";
 import {AdditionalField} from "../models/additionalField";
+import {AnswerRequest} from "../models/answerRequest";
+import {Question} from "../models/question";
+import {Answer} from "../models/answer";
 
 @Component({
   selector: 'app-open-test',
@@ -32,8 +35,7 @@ export class OpenTestComponent implements OnInit {
   getTest(): void {
     if (this.testId == null || this.testId == "") {
       this.errorText = "ID не задан. Введите ID."
-    }
-    else {
+    } else {
       this.http.post('http://localhost:8080/getTest', this.testId)
         .subscribe((test: Test) => {
           this.test = test;
@@ -46,19 +48,19 @@ export class OpenTestComponent implements OnInit {
           this.fieldsMap = new Map<string, string>();
           this.test.additionalFields.forEach(field => this.fieldsMap.set(field.id, field.name))
           this.testRequest = new TestRequest();
-          this.testRequest.additionalFields = new Map();
+          this.testRequest.additionalFields = []
           this.test.additionalFields.forEach(field => {
-            this.testRequest.additionalFields.set(field.id, new AdditionalFieldRequest(field.id, null))
+            this.testRequest.additionalFields.push(new AdditionalFieldRequest(field.id, null))
           })
-          this.testRequest.questions = new Map();
+          this.testRequest.questions = [];
           this.test.questions.forEach(question => {
-            var questionRequest = new QuestionRequest();
-            questionRequest.answers = new Map();
+            var questionRequest = new QuestionRequest(null, null);
+            questionRequest.answers = []
             questionRequest.id = question.id
             question.answers.forEach(answer => {
-              questionRequest.answers.set(answer.id, false);
+              questionRequest.answers.push(new AnswerRequest(answer.id, false));
             })
-            this.testRequest.questions.set(question.id, questionRequest);
+            this.testRequest.questions.push(questionRequest)
           })
           this.testRequest.id = this.testId
         });
@@ -66,15 +68,30 @@ export class OpenTestComponent implements OnInit {
   }
 
   changeField(value: string, field: AdditionalField) {
-    this.testRequest.additionalFields.get(field.id).value = value
+    this.testRequest.additionalFields.forEach(f => {
+      if (field.id == f.id) {
+        f.value = value
+      }
+    })
+  }
+
+  changeAnswer(question: Question, answer: Answer, isCorrect: boolean) {
+    this.testRequest.questions.forEach(q => {
+      if (q.id == question.id) {
+        q.answers.forEach(a => {
+          if (a.id == answer.id) {
+            a.isCorrect = isCorrect
+          }
+        })
+      }
+    })
   }
 
   sendRequest(): void {
     console.log(this.testRequest)
     this.errorTextSendResult = null;
     var errorFields = [];
-    this.testRequest.additionalFields.forEach((value, key) => {
-      var field = this.testRequest.additionalFields.get(key);
+    this.testRequest.additionalFields.forEach(field => {
       if (field.value == null || field.value == "") {
         errorFields.push(this.fieldsMap.get(field.id));
       }
@@ -85,10 +102,10 @@ export class OpenTestComponent implements OnInit {
         this.errorTextSendResult = this.errorTextSendResult + "\"" + error + "\", "
       })
       this.errorTextSendResult = this.errorTextSendResult.slice(0, this.errorTextSendResult.length - 2);
-    }
-    else {
+    } else {
       this.http.post('http://localhost:8080/getResult', this.testRequest)
-        .subscribe(() => { this.isSent = true;
+        .subscribe(() => {
+          this.isSent = true;
         });
     }
   }
