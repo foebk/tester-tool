@@ -37,6 +37,7 @@ public class TestMakerController {
     @PostMapping("/getResult")
     public String getResult(@RequestBody TestRequest testRequest) {
         System.out.println(1);
+        testService.getTestResult(testRequest);
         return null;
     }
 }

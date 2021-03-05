@@ -2,14 +2,17 @@ package testerTool.services;
 
 import testerTool.converters.TestEntityToTestModel;
 import testerTool.converters.TestModelToTestEntity;
-import testerTool.entities.AdditionalFieldEntity;
+import testerTool.converters.TestRequestToTestRequestEntity;
 import testerTool.entities.TestEntity;
+import testerTool.entities.TestRequestEntity;
 import testerTool.models.AdditionalField;
 import testerTool.models.TestModel;
+import testerTool.models.TestRequest;
 import testerTool.repos.TestRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import testerTool.repos.TestRequestRepository;
 
 import java.util.Objects;
 import java.util.Optional;
@@ -21,12 +24,16 @@ public class TestServiceImpl implements TestService {
     private final TestModelToTestEntity testModelToTestEntityConverter;
     private final TestEntityToTestModel testEntityToTestModel;
     private final TestRepository testRepository;
+    private final TestRequestToTestRequestEntity testRequestToTestRequestEntity;
+    private final TestRequestRepository testRequestRepository;
 
     @Autowired
-    public TestServiceImpl(TestModelToTestEntity testModelToTestEntityConverter, TestEntityToTestModel testEntityToTestModel, TestRepository testRepository) {
+    public TestServiceImpl(TestModelToTestEntity testModelToTestEntityConverter, TestEntityToTestModel testEntityToTestModel, TestRepository testRepository, TestRequestToTestRequestEntity testRequestToTestRequestEntity, TestRequestRepository testRequestRepository) {
         this.testModelToTestEntityConverter = testModelToTestEntityConverter;
         this.testEntityToTestModel = testEntityToTestModel;
         this.testRepository = testRepository;
+        this.testRequestToTestRequestEntity = testRequestToTestRequestEntity;
+        this.testRequestRepository = testRequestRepository;
     }
 
     @Override
@@ -46,5 +53,11 @@ public class TestServiceImpl implements TestService {
 
             return testModel;
         }).orElse(null);
+    }
+
+    @Override
+    public void getTestResult(TestRequest testRequest) {
+        TestRequestEntity convert = testRequestToTestRequestEntity.convert(testRequest);
+        testRequestRepository.save(testRequestToTestRequestEntity.convert(testRequest));
     }
 }
