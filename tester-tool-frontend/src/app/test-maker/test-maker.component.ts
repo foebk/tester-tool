@@ -88,6 +88,5 @@ export class TestMakerComponent implements OnInit {
       .subscribe((data: string) => {
         this.testUuid = data;
       });
-    console.log(test);
   }
 }

@@ -54,9 +54,29 @@
     </div>
   </div>
   <div *ngIf="isSent==true">
-      <div class="open-test description-and-name">
-        <h1>Результаты теста</h1>
+    <div class="open-test description-and-name">
+      <h1>Результаты теста</h1>
+      <br>
+      <h4>Правильные ответы: {{result.correctAnswers}}/{{result.questionResults.length}}</h4>
+      <h4>Количество набранных баллов: {{result.points}}/{{result.pointsTotal}}</h4>
+      <h4>Процент правильных ответов: {{result.percentage}}%</h4>
+      <div *ngIf="correctAnswers.length > 0">
+        <details>
+          <summary>Список вопросов на которые дан верный ответ</summary>
+          <div *ngFor="let q of correctAnswers">
+            <h4>{{q.questionText}}</h4>
+          </div>
+        </details>
       </div>
+      <div *ngIf="incorrectAnswers.length > 0">
+        <details>
+          <summary>Список вопросов на которые дан неверный ответ</summary>
+          <div *ngFor="let q of incorrectAnswers">
+            <h4>{{q.questionText}}</h4>
+          </div>
+        </details>
+      </div>
+    </div>
   </div>
 </div>
 </body>

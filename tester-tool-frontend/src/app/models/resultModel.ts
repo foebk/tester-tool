@@ -1,4 +1,9 @@
+import {QuestionResultModel} from "./questionResultModel";
+
 export class ResultModel {
-  questionText: string
-  isCorrect: boolean
+  percentage: number
+  correctAnswers: number
+  points: number
+  pointsTotal: number
+  questionResults: QuestionResultModel[]
 }

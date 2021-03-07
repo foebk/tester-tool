@@ -9,6 +9,7 @@ import {AnswerRequest} from "../models/answerRequest";
 import {Question} from "../models/question";
 import {Answer} from "../models/answer";
 import {ResultModel} from "../models/resultModel";
+import {QuestionResultModel} from "../models/questionResultModel";
 
 @Component({
   selector: 'app-open-test',
@@ -24,7 +25,9 @@ export class OpenTestComponent implements OnInit {
   errorTextSendResult: string;
   fieldsMap: Map<string, string>;
   isSent: boolean;
-  result: ResultModel[]
+  result: ResultModel
+  correctAnswers: QuestionResultModel[]
+  incorrectAnswers: QuestionResultModel[]
 
   constructor(private http: HttpClient) {
     this.httpClient = http;
@@ -32,7 +35,6 @@ export class OpenTestComponent implements OnInit {
 
   ngOnInit(): void {
     this.isSent = false
-    this.result = []
   }
 
   getTest(): void {
@@ -91,7 +93,6 @@ export class OpenTestComponent implements OnInit {
   }
 
   sendRequest(): void {
-    console.log(this.testRequest)
     this.errorTextSendResult = null;
     var errorFields = [];
     this.testRequest.additionalFields.forEach(field => {
@@ -109,7 +110,9 @@ export class OpenTestComponent implements OnInit {
       this.http.post('http://localhost:8080/getResult', this.testRequest)
         .subscribe((result: ResultModel) => {
           this.isSent = true;
-          this.result.push(result);
+          this.result = result;
+          this.correctAnswers = this.result.questionResults.filter(res => res.correct == true)
+          this.incorrectAnswers = this.result.questionResults.filter(res => res.correct == false)
         });
     }
   }
