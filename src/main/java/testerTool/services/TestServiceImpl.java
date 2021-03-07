@@ -5,18 +5,14 @@ import testerTool.converters.TestModelToTestEntity;
 import testerTool.converters.TestRequestToTestRequestEntity;
 import testerTool.entities.TestEntity;
 import testerTool.entities.TestRequestEntity;
-import testerTool.models.AdditionalField;
-import testerTool.models.TestModel;
-import testerTool.models.TestRequest;
+import testerTool.models.*;
 import testerTool.repos.TestRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import testerTool.repos.TestRequestRepository;
 
-import java.util.Objects;
-import java.util.Optional;
-import java.util.UUID;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Service
@@ -56,8 +52,36 @@ public class TestServiceImpl implements TestService {
     }
 
     @Override
-    public void getTestResult(TestRequest testRequest) {
+    public void saveTestResult(TestRequest testRequest) {
         TestRequestEntity convert = testRequestToTestRequestEntity.convert(testRequest);
         testRequestRepository.save(testRequestToTestRequestEntity.convert(testRequest));
+    }
+
+
+    @Override
+    public ResultModel getTestResult(TestRequest testRequest) {
+        TestEntity test = testRepository.findById(testRequest.getId()).orElse(null);
+        Map<UUID, Boolean> answersMap = new HashMap<>();
+        testRequest.getQuestions().forEach(q -> {
+            answersMap.putAll(q.getAnswers().stream()
+                    .collect(Collectors.toMap(AnswerRequest::getId, AnswerRequest::isCorrect)));
+        });
+
+        ResultModel result = new ResultModel();
+        result.setQuestionResults(test.getQuestions().stream().map(q -> {
+            if (q.getAnswers().stream().anyMatch(a -> a.isCorrect() != answersMap.get(a.getId()))) {
+                return new QuestionResultModel(q.getText(), q.getPoints(), false);
+            } else {
+                return new QuestionResultModel(q.getText(), q.getPoints(), true);
+            }
+        }).collect(Collectors.toList()));
+
+        result.setCorrectAnswers((int) result.getQuestionResults().stream().filter(QuestionResultModel::isCorrect).count());
+        result.setPercentage(Math.round((float) result.getCorrectAnswers() / (float) result.getQuestionResults().size() * 100));
+        result.setPoints(result.getQuestionResults().stream().filter(QuestionResultModel::isCorrect)
+                .mapToInt(QuestionResultModel::getPointsForCorrect).sum());
+        result.setPointsTotal(result.getQuestionResults().stream().mapToInt(QuestionResultModel::getPointsForCorrect).sum());
+
+        return result;
     }
 }

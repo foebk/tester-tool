@@ -8,6 +8,7 @@ import {AdditionalField} from "../models/additionalField";
 import {AnswerRequest} from "../models/answerRequest";
 import {Question} from "../models/question";
 import {Answer} from "../models/answer";
+import {ResultModel} from "../models/resultModel";
 
 @Component({
   selector: 'app-open-test',
@@ -23,6 +24,7 @@ export class OpenTestComponent implements OnInit {
   errorTextSendResult: string;
   fieldsMap: Map<string, string>;
   isSent: boolean;
+  result: ResultModel[]
 
   constructor(private http: HttpClient) {
     this.httpClient = http;
@@ -30,6 +32,7 @@ export class OpenTestComponent implements OnInit {
 
   ngOnInit(): void {
     this.isSent = false
+    this.result = []
   }
 
   getTest(): void {
@@ -104,8 +107,9 @@ export class OpenTestComponent implements OnInit {
       this.errorTextSendResult = this.errorTextSendResult.slice(0, this.errorTextSendResult.length - 2);
     } else {
       this.http.post('http://localhost:8080/getResult', this.testRequest)
-        .subscribe(() => {
+        .subscribe((result: ResultModel) => {
           this.isSent = true;
+          this.result.push(result);
         });
     }
   }
