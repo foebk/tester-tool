@@ -4,6 +4,7 @@
   <br>
   <br>
   <div class="open-test get-test-field" *ngIf="test==null || test == undefined">
+    <h1>Открыть тест</h1>
     <mat-form-field appearance="outline" class="test-id">
       <mat-label>Введите ID теста</mat-label>
       <input matInput #test (change)="testId=test.value">

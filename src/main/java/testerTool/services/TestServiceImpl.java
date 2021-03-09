@@ -52,7 +52,6 @@ public class TestServiceImpl implements TestService {
 
     @Override
     public void saveTestResult(TestRequest testRequest) {
-        TestRequestEntity convert = testRequestToTestRequestEntity.convert(testRequest);
         testRequestRepository.save(testRequestToTestRequestEntity.convert(testRequest));
     }
 
@@ -79,7 +78,7 @@ public class TestServiceImpl implements TestService {
     }
 
     @Override
-    public MainResultModel getAllResults(UUID uuid) {
+    public MainResult getAllResults(UUID uuid) {
         TestEntity testEntity = testRepository.findById(uuid).orElse(null);
         Map<UUID, Boolean> answersMap = testEntity.getQuestions().stream().flatMap(q -> q.getAnswers().stream())
                 .collect(Collectors.toMap(AnswerEntity::getId, AnswerEntity::isCorrect));
@@ -88,9 +87,9 @@ public class TestServiceImpl implements TestService {
         Map<UUID, Integer> ratingMap = testEntity.getQuestions().stream().collect(Collectors.toMap(
                 QuestionEntity::getId, q -> 0));
 
-        MainResultModel mainResultModel = new MainResultModel();
+        MainResult mainResult = new MainResult();
         List<TestRequestEntity> testRequestEntities = testEntity.getTestRequestEntities();
-        mainResultModel.setResultModels(testRequestEntities.stream().map(entity -> {
+        mainResult.setResultModels(testRequestEntities.stream().map(entity -> {
             ResultModel resultModel = new ResultModel();
             resultModel.setAdditionalFields(entity.getAdditionalFieldRequestEntity().stream()
                     .map(f -> new AdditionalFieldResponse(additionalFieldsMap.get(f.getAdditionalField().getId()), f.getValue()))
@@ -110,9 +109,11 @@ public class TestServiceImpl implements TestService {
             return setStatisticsInfo(resultModel);
         }).collect(Collectors.toList()));
 
-        mainResultModel.setQuestionRatings(createQuestionRating(ratingMap, testEntity.getQuestions()));
+        mainResult.setQuestionRatings(createQuestionRating(ratingMap, testEntity.getQuestions()));
+        mainResult.setTestName(testEntity.getName());
+        mainResult.setTestDescription(testEntity.getDescription());
 
-        return mainResultModel;
+        return setMainResultStatistics(mainResult);
     }
 
     private ResultModel setStatisticsInfo(ResultModel result) {
@@ -131,5 +132,19 @@ public class TestServiceImpl implements TestService {
         return ratingMap.entrySet().stream().map(e -> new QuestionRating(questionMap.get(e.getKey()), e.getValue()))
                 .sorted(Comparator.comparing(QuestionRating::getCountOfWrongAnswers).reversed())
                 .collect(Collectors.toList());
+    }
+
+    private MainResult setMainResultStatistics(MainResult mainResult) {
+        IntSummaryStatistics percentage = mainResult.getResultModels().stream().mapToInt(ResultModel::getPercentage).summaryStatistics();
+        mainResult.setLowestPoints(percentage.getMin());
+        mainResult.setHighestPercentage(percentage.getMax());
+        mainResult.setAveragePercentage((int) Math.round(percentage.getAverage()));
+        
+        IntSummaryStatistics points =  mainResult.getResultModels().stream().mapToInt(ResultModel::getPoints).summaryStatistics();
+        mainResult.setLowestPoints(points.getMin());
+        mainResult.setHighestPoints(points.getMax());
+        mainResult.setAveragePoints((int) Math.round(points.getAverage()));
+
+        return mainResult;
     }
 }

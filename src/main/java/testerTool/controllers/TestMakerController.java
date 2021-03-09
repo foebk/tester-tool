@@ -40,7 +40,7 @@ public class TestMakerController {
     }
 
     @GetMapping("/getAllResults")
-    public MainResultModel getAllResults(@RequestParam("id") String uuid) {
+    public MainResult getAllResults(@RequestParam("id") String uuid) {
         try{
             UUID id = UUID.fromString(uuid);
             return testService.getAllResults(id);

@@ -14,5 +14,5 @@ public interface TestService {
 
     ResultModel getTestResult(TestRequest testRequest);
 
-    MainResultModel getAllResults(UUID uuid);
+    MainResult getAllResults(UUID uuid);
 }
