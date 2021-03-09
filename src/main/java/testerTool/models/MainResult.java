@@ -5,10 +5,10 @@ import java.util.List;
 public class MainResult {
     private String testName;
     private String testDescription;
-    private int averagePoints;
+    private double averagePoints;
     private int lowestPoints;
     private int highestPoints;
-    private int averagePercentage;
+    private double averagePercentage;
     private int lowestPercentage;
     private int highestPercentage;
     private List<ResultModel> resultModels;
@@ -30,14 +30,6 @@ public class MainResult {
         this.questionRatings = questionRatings;
     }
 
-    public int getAveragePoints() {
-        return averagePoints;
-    }
-
-    public void setAveragePoints(int averagePoints) {
-        this.averagePoints = averagePoints;
-    }
-
     public int getLowestPoints() {
         return lowestPoints;
     }
@@ -52,14 +44,6 @@ public class MainResult {
 
     public void setHighestPoints(int highestPoints) {
         this.highestPoints = highestPoints;
-    }
-
-    public int getAveragePercentage() {
-        return averagePercentage;
-    }
-
-    public void setAveragePercentage(int averagePercentage) {
-        this.averagePercentage = averagePercentage;
     }
 
     public int getLowestPercentage() {
@@ -92,5 +76,21 @@ public class MainResult {
 
     public void setTestDescription(String testDescription) {
         this.testDescription = testDescription;
+    }
+
+    public double getAveragePoints() {
+        return averagePoints;
+    }
+
+    public void setAveragePoints(double averagePoints) {
+        this.averagePoints = averagePoints;
+    }
+
+    public double getAveragePercentage() {
+        return averagePercentage;
+    }
+
+    public void setAveragePercentage(double averagePercentage) {
+        this.averagePercentage = averagePercentage;
     }
 }

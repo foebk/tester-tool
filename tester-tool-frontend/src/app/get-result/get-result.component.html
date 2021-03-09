@@ -21,6 +21,40 @@
   <div *ngIf="mainResult!=null" class="open-test description-and-name">
     <h1>Общие результаты теста - "{{mainResult.testName}}"</h1>
     <h4>Описание: <i>{{mainResult.testDescription}}</i></h4>
+    <mat-tab-group mat-align-tabs="center">
+      <mat-tab label="Общая информация о тесте">
+        <br>
+        <p>Количество решивших: {{mainResult.resultModels.length}}</p>
+        <p>Максимальное количество баллов: {{mainResult.resultModels[0].pointsTotal}}</p>
+        <br>
+        <p>Средний балл: {{mainResult.averagePoints.toFixed(3)}}</p>
+        <p>Минимальный набранный балл: {{mainResult.lowestPoints}}</p>
+        <p>Максимальный набранный балл: {{mainResult.highestPoints}}</p>
+        <br>
+        <p>Средний процент от количества правильно решенных заданий: {{mainResult.averagePercentage.toFixed(3)}}%</p>
+        <p>Минимальный процент от количества правильно решенных заданий: {{mainResult.lowestPercentage}}%</p>
+        <p>Максимальный процент от количества правильно решенных заданий: {{mainResult.highestPercentage}}%</p>
+      </mat-tab>
+      <mat-tab label="Список решивших">
+        <br>
+        <div *ngFor="let result of mainResult.resultModels">
+          <details>
+            <summary>
+              <div class="inline" *ngFor="let field of result.additionalFields">
+                <span class="border">{{field.text}}: <i>{{field.value}}</i></span>
+              </div>
+            </summary>
+            <div class="results">
+            <p>Правильные ответы: {{result.correctAnswers}}/{{result.questionResults.length}}</p>
+            <p>Количество набранных баллов: {{result.points}}/{{result.pointsTotal}}</p>
+            <p>Процент правильных ответов: {{result.percentage}}%</p>
+            </div>
+
+          </details>
+        </div>
+      </mat-tab>
+      <mat-tab label="Рейтинг вопросов">Content 2</mat-tab>
+    </mat-tab-group>
   </div>
   <br>
 </div>

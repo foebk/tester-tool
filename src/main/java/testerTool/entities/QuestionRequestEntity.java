@@ -1,7 +1,6 @@
 package testerTool.entities;
 
 import org.hibernate.annotations.GenericGenerator;
-import testerTool.models.TestRequest;
 
 import javax.persistence.*;
 import java.util.List;

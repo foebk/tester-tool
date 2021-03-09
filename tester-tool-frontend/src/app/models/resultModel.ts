@@ -1,4 +1,5 @@
 import {QuestionResultModel} from "./questionResultModel";
+import {AdditionalFieldResponse} from "./additionalFieldResponse";
 
 export class ResultModel {
   percentage: number
@@ -6,4 +7,5 @@ export class ResultModel {
   points: number
   pointsTotal: number
   questionResults: QuestionResultModel[]
+  additionalFields: AdditionalFieldResponse[]
 }

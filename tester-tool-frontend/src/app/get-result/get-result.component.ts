@@ -1,8 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {MainResult} from "../models/mainResult";
 import {HttpClient} from "@angular/common/http";
-import {MatTabsModule} from '@angular/material/tabs';
-import {Test} from "../models/test";
 
 @Component({
   selector: 'app-get-result',
@@ -14,6 +12,7 @@ export class GetResultComponent implements OnInit {
   httpClient: HttpClient;
   testId: string;
   errorText: string;
+  search: string
 
   constructor(private http: HttpClient) {
     this.httpClient = http;

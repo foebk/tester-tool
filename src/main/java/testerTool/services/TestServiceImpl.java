@@ -138,12 +138,12 @@ public class TestServiceImpl implements TestService {
         IntSummaryStatistics percentage = mainResult.getResultModels().stream().mapToInt(ResultModel::getPercentage).summaryStatistics();
         mainResult.setLowestPoints(percentage.getMin());
         mainResult.setHighestPercentage(percentage.getMax());
-        mainResult.setAveragePercentage((int) Math.round(percentage.getAverage()));
+        mainResult.setAveragePercentage((percentage.getAverage()));
         
         IntSummaryStatistics points =  mainResult.getResultModels().stream().mapToInt(ResultModel::getPoints).summaryStatistics();
         mainResult.setLowestPoints(points.getMin());
         mainResult.setHighestPoints(points.getMax());
-        mainResult.setAveragePoints((int) Math.round(points.getAverage()));
+        mainResult.setAveragePoints(points.getAverage());
 
         return mainResult;
     }
