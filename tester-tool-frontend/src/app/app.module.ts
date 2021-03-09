@@ -17,13 +17,15 @@ import {HttpClientModule} from '@angular/common/http';
 import { HeaderComponent } from './header/header.component';
 import {MatToolbarModule} from "@angular/material/toolbar";
 import { OpenTestComponent } from './open-test/open-test.component';
+import { GetResultComponent } from './get-result/get-result.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     TestMakerComponent,
     HeaderComponent,
-    OpenTestComponent
+    OpenTestComponent,
+    GetResultComponent
   ],
     imports: [
         BrowserModule,

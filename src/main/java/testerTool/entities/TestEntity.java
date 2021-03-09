@@ -31,6 +31,10 @@ public class TestEntity {
     @JoinColumn(name = "test_id")
     private List<AdditionalFieldEntity> additionalFields;
 
+    @OneToMany(cascade = CascadeType.ALL)
+    @JoinColumn(name = "test_entity_id")
+    private List<TestRequestEntity> testRequestEntities;
+
     public UUID getId() {
         return id;
     }
@@ -77,5 +81,17 @@ public class TestEntity {
 
     public void setAdditionalFields(List<AdditionalFieldEntity> additionalFields) {
         this.additionalFields = additionalFields;
+    }
+
+    public void setId(UUID id) {
+        this.id = id;
+    }
+
+    public List<TestRequestEntity> getTestRequestEntities() {
+        return testRequestEntities;
+    }
+
+    public void setTestRequestEntities(List<TestRequestEntity> testRequestEntities) {
+        this.testRequestEntities = testRequestEntities;
     }
 }

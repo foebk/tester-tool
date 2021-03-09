@@ -1,15 +1,11 @@
 package testerTool.controllers;
 
-import testerTool.models.QuestionResultModel;
-import testerTool.models.ResultModel;
-import testerTool.models.TestModel;
-import testerTool.models.TestRequest;
+import testerTool.models.*;
 import testerTool.services.TestService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
 import java.util.UUID;
 
 @RestController
@@ -41,5 +37,15 @@ public class TestMakerController {
     public ResultModel saveTestResult(@RequestBody TestRequest testRequest) {
         testService.saveTestResult(testRequest);
         return testService.getTestResult(testRequest);
+    }
+
+    @GetMapping("/getAllResults")
+    public MainResultModel getAllResults(@RequestParam("id") String uuid) {
+        try{
+            UUID id = UUID.fromString(uuid);
+            return testService.getAllResults(id);
+        } catch (IllegalArgumentException exception){
+            return null;
+        }
     }
 }

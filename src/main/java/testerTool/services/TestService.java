@@ -1,12 +1,8 @@
 package testerTool.services;
 
-import testerTool.models.QuestionResultModel;
-import testerTool.models.ResultModel;
-import testerTool.models.TestModel;
+import testerTool.models.*;
 import org.springframework.http.ResponseEntity;
-import testerTool.models.TestRequest;
 
-import java.util.List;
 import java.util.UUID;
 
 public interface TestService {
@@ -17,4 +13,6 @@ public interface TestService {
     void saveTestResult(TestRequest testRequest);
 
     ResultModel getTestResult(TestRequest testRequest);
+
+    MainResultModel getAllResults(UUID uuid);
 }

@@ -7,6 +7,7 @@ public class ResultModel {
     private int correctAnswers;
     private int points;
     private int pointsTotal;
+    private List<AdditionalFieldResponse> additionalFields;
     private List<QuestionResultModel> questionResults;
 
     public int getPercentage() {
@@ -47,5 +48,13 @@ public class ResultModel {
 
     public void setQuestionResults(List<QuestionResultModel> questionResults) {
         this.questionResults = questionResults;
+    }
+
+    public List<AdditionalFieldResponse> getAdditionalFields() {
+        return additionalFields;
+    }
+
+    public void setAdditionalFields(List<AdditionalFieldResponse> additionalFields) {
+        this.additionalFields = additionalFields;
     }
 }
