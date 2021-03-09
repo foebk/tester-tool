@@ -1,0 +1,27 @@
+<body class="background">
+<app-header></app-header>
+<div>
+  <br>
+  <br>
+  <div class="open-test get-test-field" *ngIf="mainResult==null || mainResult == undefined">
+    <h1>Получить результаты</h1>
+    <mat-form-field appearance="outline" class="test-id">
+      <mat-label>Введите ID теста</mat-label>
+      <input matInput #test (change)="testId=test.value">
+    </mat-form-field>
+    <br>
+    <button mat-raised-button (click)="getTestResult()">
+      Получить результаты
+    </button>
+    <div *ngIf="errorText!=null">
+      <br>
+      <span style="color: red"><i>{{errorText}}</i></span>
+    </div>
+  </div>
+  <div *ngIf="mainResult!=null" class="open-test description-and-name">
+    <h1>Общие результаты теста - "{{mainResult.testName}}"</h1>
+    <h4>Описание: <i>{{mainResult.testDescription}}</i></h4>
+  </div>
+  <br>
+</div>
+</body>
